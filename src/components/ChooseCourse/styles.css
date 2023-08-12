@@ -1,0 +1,75 @@
+.choose-course {
+  margin: 16px;
+  padding: 2rem;
+  display: flex;
+  background-color: rgb(227, 235, 237);
+}
+
+.section-course {
+  margin: 1rem;
+  width: 40%;
+}
+
+.section-title-course {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+  margin-bottom: 8px;
+}
+
+.section-content {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.fields-container {
+  max-width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.field-btn {
+  background-color: #f6f8fa;
+  color: rgb(10, 10, 10);
+  border-radius: 20px;
+  border: 0px;
+  width: 200px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.field-btn:hover {
+  background-color: #264f79;
+  color: rgb(252, 249, 249) !important;
+}
+
+.field-label {
+  text-align: center;
+}
+
+.see-more-btn {
+  background-color: rgb(128, 198, 223);
+  color: #fff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.see-more-btn:hover {
+  background-color: #264f79;
+  color: #fff !important;
+}
+@media screen and (max-width: 600px) {
+  .choose-course {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fields-container {
+    width: 100%;
+  }
+}

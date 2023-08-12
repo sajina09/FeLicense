@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/NavBar";
+import "./App.css";
+import { Layout } from "antd";
+import HomePage from "pages/HomePage";
+import AllCourses from "pages/AllCourses";
+import CourseSpecific from "pages/CourseSpecific";
+import Footer from "components/Footer";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Layout style={{ marginTop: "64px" }}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/all-fields" element={<AllCourses />} />
+          <Route path="/it-engineering" element={<CourseSpecific />} />
+        </Routes>
+      </Layout>
+      <Footer />
+    </Router>
   );
 }
 

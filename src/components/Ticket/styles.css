@@ -1,0 +1,13 @@
+.ticket {
+  border-left: 8px solid #f90; /* Orange vertical line */
+  margin-bottom: 16px;
+}
+
+.ticket-description {
+  margin-top: 6px;
+  margin-bottom: 8px;
+}
+
+.ticket-button {
+  margin-top: 16px;
+}
