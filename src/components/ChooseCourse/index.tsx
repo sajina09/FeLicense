@@ -1,64 +1,56 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, Button } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
+import { useAppDispatch, useAppSelector } from "hooks/useApp";
+import { fetchSubjects } from "redux/subjectSlice";
 
 interface ChooseCourseProps {
   showAll?: boolean;
 }
-interface Field {
-  label: string;
-  path: string;
-}
 
 const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
-  const fields: Field[] = [
-    {
-      label: "IT",
-      path: "/it-engineering",
-    },
-    {
-      label: "Computer",
-      path: "/computer-engineering",
-    },
-    {
-      label: "Electrical",
-      path: "/electrical-engineering",
-    },
-    {
-      label: "Civil",
-      path: "/civil-engineering",
-    },
-    {
-      label: "Electronics",
-      path: "electronics-engineering",
-    },
-    {
-      label: "Architectural",
-      path: "/architectural-engineering",
-    },
-    {
-      label: "Bio-Medical",
-      path: "/bio-medical-engineering",
-    },
+  const dispatch = useAppDispatch();
+  const { fields } = useAppSelector((state) => state.subjects);
 
-    // Add more fields here
-  ];
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchSubjects());
+  }, [dispatch]);
 
   const renderEngineeringFields = () => {
     const showNumber = showAll ? fields?.length : 6;
     return (
       <>
-        {fields.slice(0, showNumber).map((field, index) => (
-          <Button key={index} className="field-btn">
-            <Link to={field.path}>
-              {field.label} <br></br>
-              Engineering
-            </Link>
+        {fields?.slice(0, showNumber).map((field, index) => (
+          <Button
+            key={index}
+            className="field-btn"
+            title={field.subject_name}
+            onClick={() => {
+              navigateToField(field.subject_name);
+            }}
+          >
+            <div
+              style={{
+                width: "100%",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {field.subject_name}
+            </div>
           </Button>
         ))}
       </>
     );
+  };
+
+  const navigateToField = (id: string) => {
+    const formattedId = id.replace(/\s+/g, "-");
+    navigate(`/${formattedId}`);
   };
 
   return (

@@ -21,7 +21,9 @@ const HomePage: React.FC = () => {
           }
           description="This is an online platform for all national and international students who are seeking Er. License from Nepal."
         ></Ticket>
+        try
       </div>
+
       <LandingDescriptionBlock />
       <ChooseCourse />
 
@@ -35,7 +37,7 @@ const HomePage: React.FC = () => {
         <Ticket
           title={
             <h1>
-              Get tips and trick <br></br> straight in your <br></br> inbox.
+              Get tips and trick <br></br> straight in your <br></br> Inbox.
             </h1>
           }
           button="Contact Us"

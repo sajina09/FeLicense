@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs } from "antd";
 import Ticket from "components/Ticket";
 import "./styles.css";
 import ChooseCourse from "components/ChooseCourse";
 import SubtopicComponent from "components/Syllabus";
+import { useAppDispatch, useAppSelector } from "hooks/useApp";
+import { fetchModelSet } from "redux/subjectSlice";
+import QuestionComponent from "components/SingleQuiz";
 
 interface Course {
   id: string;
@@ -39,6 +42,8 @@ const CourseSpecific: React.FC = () => {
           description="A detailed, reliable view of your IT knowledge in a quick convenient format."
         />
       </div>
+      Questions
+      <QuestionComponent />
       <Tabs
         tabPosition="top"
         defaultActiveKey="0"
@@ -64,7 +69,6 @@ const CourseSpecific: React.FC = () => {
           </Tabs.TabPane>
         ))}
       </Tabs>
-
       <ChooseCourse />
     </div>
   );

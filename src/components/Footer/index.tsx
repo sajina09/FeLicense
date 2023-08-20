@@ -7,8 +7,8 @@ const Footer: React.FC = () => {
       <div className="footer">
         <div className="footer-column">
           <h2>Contact Us</h2>
-          <p className="footer-small">Email :support@beer.com</p>
-          <p className="footer-small">Phone : 123-456-7890</p>
+          <p className="footer-small">Email: support@beer.com</p>
+          <p className="footer-small">Phone: 123-456-7890</p>
         </div>
         <div className="footer-column">
           <h2>Useful Links</h2>

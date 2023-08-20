@@ -1,5 +1,5 @@
-import React from 'react';
-import './styles.css';
+import React from "react";
+import "./styles.css";
 
 interface CardWithImageProps {
   title: string;
@@ -7,11 +7,15 @@ interface CardWithImageProps {
   imageSrc: string;
 }
 
-const CardWithImage: React.FC<CardWithImageProps> = ({ title, description, imageSrc }) => {
+const CardWithImage: React.FC<CardWithImageProps> = ({
+  title,
+  description,
+  imageSrc,
+}) => {
   return (
     <div className="card-with-image">
       <div className="card-image-container">
-        <img className="card-image" src={imageSrc} alt="Card Image" />
+        <img className="card-image" src={imageSrc} alt="Card" />
       </div>
       <div className="card-content">
         <h3 className="card-title">{title}</h3>

@@ -30,7 +30,7 @@ const courseData: CourseData = {
           title: "1.1 Basic Concept",
           subtopics: [
             "Second Subtopic",
-            "Second Sub Second Subtopictopic Second Subtopic Second Subtopic Second Subtopic",
+            "Second Sub Second Sub topic topic Second Subtopic Second Subtopic Second Subtopic",
           ],
         },
         { id: "2", title: "1.2 Second Subtopic" },
