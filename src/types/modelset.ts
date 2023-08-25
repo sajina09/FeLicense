@@ -1,4 +1,4 @@
-export interface Question {
+export interface QuestionA {
   id: number;
   title: string;
   A: string;
@@ -10,8 +10,8 @@ export interface Question {
   correct_answer?: string;
 }
 
-export interface ModelSet {
+export interface ModelSetA {
   id: number;
-  questions: Question[];
+  questions: QuestionA[];
   set_name: string;
 }

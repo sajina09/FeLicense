@@ -4,10 +4,7 @@ import "./styles.css";
 
 const BeButton: React.FC<ButtonProps> = ({ children, ...props }) => {
   return (
-    <Button
-      className="custom-button"
-      {...props}
-    >
+    <Button className="custom-button" {...props}>
       {children}
     </Button>
   );

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Tabs } from "antd";
 import Ticket from "components/Ticket";
 import "./styles.css";
 import ChooseCourse from "components/ChooseCourse";
-import SubtopicComponent from "components/Syllabus";
-import { useAppDispatch, useAppSelector } from "hooks/useApp";
-import { fetchModelSet } from "redux/subjectSlice";
-import QuestionComponent from "components/SingleQuiz";
+import SubtopicComponent from "components/SubtopicComponent";
+
+import QuestionComponent from "components/Questions";
+import AvailableModelQuestion from "components/Button/AvailableModelQuestions";
 
 interface Course {
   id: string;
@@ -42,7 +42,9 @@ const CourseSpecific: React.FC = () => {
           description="A detailed, reliable view of your IT knowledge in a quick convenient format."
         />
       </div>
-      Questions
+
+      <AvailableModelQuestion />
+
       <QuestionComponent />
       <Tabs
         tabPosition="top"
