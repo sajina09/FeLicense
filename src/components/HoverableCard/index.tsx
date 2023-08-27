@@ -8,6 +8,10 @@ export interface HoverableCardProps {
 }
 
 const HoverableCard: FC<HoverableCardProps> = ({ title }) => {
+  const handlePractice = () => {
+    console.log("hi");
+  };
+  const handleExam = () => {};
   return (
     <div className="flip-card">
       <div className="flip-card-inner">
@@ -16,8 +20,8 @@ const HoverableCard: FC<HoverableCardProps> = ({ title }) => {
           <p className="hover-text">Hover me!</p>
         </div>
         <div className="flip-card-back">
-          <BeButton> Practice</BeButton>
-          <BeButton> Take Exam</BeButton>
+          <BeButton onClick={handlePractice}> Practice</BeButton>
+          <BeButton onClick={handleExam}> Take Exam</BeButton>
         </div>
       </div>
     </div>

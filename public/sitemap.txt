@@ -1,0 +1,3 @@
+// TODO : after deploying add the urls here
+// TODO after deployin ghttps://search.google.com/search-console/welcome?utm_source=about-page , add the meta tag to index.html
+https://www.youtube.com/watch?v=wWeG8rWkMsM

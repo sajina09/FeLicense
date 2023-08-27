@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Tabs } from "antd";
+import { Col, Row, Tabs } from "antd";
 import Ticket from "components/Ticket";
 import "./styles.css";
 import ChooseCourse from "components/ChooseCourse";
 import SubtopicComponent from "components/SubtopicComponent";
 
 import QuestionComponent from "components/Questions";
-import AvailableModelQuestion from "components/Button/AvailableModelQuestions";
+import ModelList from "ModelList";
+import { Helmet } from "react-helmet-async";
 
 interface Course {
   id: string;
@@ -36,6 +37,17 @@ const CourseSpecific: React.FC = () => {
 
   return (
     <div className="course-specific-container">
+      <Helmet>
+        <title>Syllabus</title>
+        <meta
+          name="description"
+          content="Syllabus for nec engineering license of IT."
+        />
+        <link
+          rel="canonical"
+          href="/Information-Technology-&-Telecommunication-Engineering"
+        />
+      </Helmet>
       <div className="course-specific-name" style={{ width: "400px" }}>
         <Ticket
           title="Information Technology"
@@ -43,8 +55,14 @@ const CourseSpecific: React.FC = () => {
         />
       </div>
 
-      <AvailableModelQuestion />
-
+      <div className="section">
+        <Row>
+          <Col>
+            <h1 className="section-title">Available Model Questions</h1>
+          </Col>
+        </Row>
+      </div>
+      <ModelList />
       <QuestionComponent />
       <Tabs
         tabPosition="top"
