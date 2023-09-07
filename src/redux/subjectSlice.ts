@@ -36,14 +36,36 @@ export const fetchModelSet = createAsyncThunk(
   }
 );
 
+export const fetchSingleModelSet = createAsyncThunk(
+  "subjects/fetchSingleModelSet",
+  async ({ modelsetId }: { modelsetId: string }, { getState }) => {
+    try {
+      const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+      const response = await axios.get<ModelSet>(
+        `${baseUrl}modelsets/${modelsetId}/`
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
 export interface SubjectsState {
   fields: Subject[];
-  modelset: ModelSet[];
+  modelSet: ModelSet[];
+  singleModelSet: ModelSet;
 }
 
 const initialState: SubjectsState = {
   fields: [],
-  modelset: [],
+  modelSet: [],
+  singleModelSet: {
+    id: 1,
+    questions: [],
+    set_name: "",
+  },
 };
 
 const subjectsSlice = createSlice({
@@ -56,7 +78,11 @@ const subjectsSlice = createSlice({
     });
 
     builder.addCase(fetchModelSet.fulfilled, (state, action) => {
-      state.modelset = action.payload;
+      state.modelSet = action.payload;
+    });
+
+    builder.addCase(fetchSingleModelSet.fulfilled, (state, action) => {
+      state.singleModelSet = action.payload;
     });
   },
 });

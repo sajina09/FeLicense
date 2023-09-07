@@ -12,8 +12,14 @@ const Navbar: FC = () => {
   return (
     <div className="navbar">
       <div className="logo" onClick={handleLogoClick}>
+        {/* <img
+          src={logo}
+          alt="Logo"
+          style={{ maxWidth: "100%", maxHeight: "100%" }}
+        /> */}
         Logo
       </div>
+
       <div className="actions">
         <BeButton> Book Test</BeButton>
       </div>

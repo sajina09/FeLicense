@@ -49,8 +49,8 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
   };
 
   const navigateToField = (id: string) => {
-    const formattedId = id.replace(/\s+/g, "-");
-    navigate(`/${formattedId}`);
+    const fieldName = id.replace(/\s+/g, "-");
+    navigate(`/${fieldName}`);
   };
 
   return (

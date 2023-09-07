@@ -1,3 +1,4 @@
+import QuestionComponent from "components/Questions";
 import React from "react";
 import { RouteObject, useRoutes } from "react-router-dom";
 
@@ -12,6 +13,7 @@ export const routes: RouteObject[] = [
       { index: true, element: <Home /> },
       { path: "/all-fields", element: <AllCourses /> },
       { path: "/:name", element: <CourseSpecific /> },
+      { path: "/:name/:id", element: <QuestionComponent /> },
     ],
   },
 ];

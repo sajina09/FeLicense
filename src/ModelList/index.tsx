@@ -1,35 +1,33 @@
 import React from "react";
-import { Card, List } from "antd";
+import { Button, Card, List } from "antd";
 import BeButton from "components/Button";
+import { ModelSet } from "types";
+import { useNavigate } from "react-router-dom";
+import { DownloadOutlined } from "@ant-design/icons";
 
-const data = [
-  {
-    title: "Title 1",
-  },
-  {
-    title: "Title 2",
-  },
-  {
-    title: "Title 3",
-  },
-  {
-    title: "Title 4",
-  },    
-];
+interface ModelListIProps {
+  modelSet: ModelSet[];
+}
 
-const ModelList: React.FC = () => {
-  const handlePractice = () => {
-    console.log("hi");
+const ModelList: React.FC<ModelListIProps> = ({ modelSet }) => {
+  const navigate = useNavigate();
+
+  const handlePractice = (modelsetId: number, modelName: string) => {
+    const fieldName = modelName.split(" (")[0];
+    const extractedName = fieldName.replace(/\s+/g, "-");
+
+    navigate(`/${extractedName}/${modelsetId}`);
   };
+
   const handleExam = () => {};
 
   return (
     <List
-      grid={{ gutter: 16, column: 4 }}
-      dataSource={data}
+      grid={{ gutter: 16, column: 3 }}
+      dataSource={modelSet}
       renderItem={(item) => (
         <List.Item>
-          <Card title={item.title}>
+          <Card title={item?.set_name}>
             <div
               style={{
                 display: "flex",
@@ -37,8 +35,18 @@ const ModelList: React.FC = () => {
                 justifyContent: "space-around",
               }}
             >
-              <BeButton onClick={handlePractice}> Practice</BeButton>
+              <BeButton
+                onClick={() => handlePractice(item?.id, item?.set_name)}
+              >
+                Practice
+              </BeButton>
               <BeButton onClick={handleExam}> Take Exam</BeButton>
+              <Button
+                title="Download model set"
+                shape="round"
+                icon={<DownloadOutlined />}
+                // size={"small"}
+              />
             </div>
           </Card>
         </List.Item>

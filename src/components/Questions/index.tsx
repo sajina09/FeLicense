@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Card, Collapse, Radio } from "antd";
 import { useAppDispatch, useAppSelector } from "hooks/useApp";
-import { fetchModelSet } from "redux/subjectSlice";
+import { fetchSingleModelSet } from "redux/subjectSlice";
+import { useParams } from "react-router-dom";
+import "./styles.css";
+import CountdownTimer from "components/Timer";
 
 export type IQuestionProps = {
   isTimedExam?: boolean; // Difference between exam and practice questions
@@ -9,17 +12,18 @@ export type IQuestionProps = {
 
 const QuestionComponent: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { id: modelsetId } = useParams();
 
-  const { modelset } = useAppSelector((state) => state.subjects);
+  const { singleModelSet } = useAppSelector((state) => state.subjects);
 
   useEffect(() => {
-    dispatch(fetchModelSet());
+    dispatch(fetchSingleModelSet({ modelsetId: modelsetId as string }));
   }, []);
 
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
 
-  const questions = modelset?.[0]?.questions;
-  const modelSetName = modelset?.[0]?.set_name;
+  const questions = singleModelSet?.questions;
+  const modelSetName = singleModelSet?.set_name;
 
   const handleAnswerChange = (questionId: number, selectedOption: string) => {
     setTimeout(() => {
@@ -40,17 +44,28 @@ const QuestionComponent: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="model-set-container">
       <h1 style={{ textAlign: "center" }}>{modelSetName}</h1>
+      <div className="timer-container">
+        <div className="group-division">{/* Group A Group B */}</div>
+        <div className="timer">
+          Time Left
+          <CountdownTimer durationInMinutes={1} />
+        </div>
+      </div>
       {questions?.map((question: any, index: number) => {
         const userAnswer = userAnswers[question.id];
         const isCorrect = userAnswer === question.correct_answer;
 
+        console.log("question", question);
+
         return (
           <Card
             key={question.id}
+            size="small"
             title={
               <div
+                style={{ overflow: "visible", whiteSpace: "normal" }}
                 dangerouslySetInnerHTML={{
                   __html: `<div style="display: flex; align-items: center;">${
                     index + 1
@@ -90,6 +105,7 @@ const QuestionComponent: React.FC = () => {
                           : "white",
                     }}
                     dangerouslySetInnerHTML={{ __html: question[option] }}
+                    className="custom-paragraph"
                   />
                 </Radio>
               ))}
@@ -112,7 +128,7 @@ const QuestionComponent: React.FC = () => {
                       dangerouslySetInnerHTML={{ __html: question.explanation }}
                     />
                   ),
-                  extra: <div>Similar questions</div>,
+                  // extra: <div>Similar questions</div>,
                 },
               ]}
             />

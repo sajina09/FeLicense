@@ -1,0 +1,29 @@
+.header {
+  background: #254864;
+  color: white;
+  padding: 18px 0;
+}
+
+.title {
+  margin: 0;
+}
+
+.countdown-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.time-section {
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #254864;
+}
+
+.time {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+}

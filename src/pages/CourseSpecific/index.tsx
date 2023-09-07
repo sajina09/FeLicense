@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row, Tabs } from "antd";
 import Ticket from "components/Ticket";
 import "./styles.css";
 import ChooseCourse from "components/ChooseCourse";
 import SubtopicComponent from "components/SubtopicComponent";
 
-import QuestionComponent from "components/Questions";
 import ModelList from "ModelList";
 import { Helmet } from "react-helmet-async";
+import { useAppDispatch, useAppSelector } from "hooks/useApp";
+import { fetchModelSet } from "redux/subjectSlice";
 
 interface Course {
   id: string;
@@ -29,7 +30,14 @@ const courses = [
 ];
 
 const CourseSpecific: React.FC = () => {
+  const { modelSet } = useAppSelector((state) => state.subjects);
+  const dispatch = useAppDispatch();
+
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+
+  useEffect(() => {
+    dispatch(fetchModelSet());
+  }, []);
 
   const handleCourseClick = (course: Course) => {
     setSelectedCourse(course);
@@ -62,8 +70,7 @@ const CourseSpecific: React.FC = () => {
           </Col>
         </Row>
       </div>
-      <ModelList />
-      <QuestionComponent />
+      <ModelList modelSet={modelSet} />
       <Tabs
         tabPosition="top"
         defaultActiveKey="0"
