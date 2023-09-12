@@ -1,9 +1,10 @@
+/* styles.css */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 98%;
-  height: 64px;
+  height: 5rem;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -14,6 +15,24 @@
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.4s ease-in-out; /* Add a transition for smooth scaling */
+}
+
+.logo:hover {
+  transform: scale(
+    1.1
+  ); /* Scale the logo on hover (adjust the scale factor as needed) */
+}
+
+.logo-image {
+  max-width: 100px; /* Adjust the width as needed */
+  max-height: 4.5rem; /* Adjust the height as needed */
+}
+
+.logo-text {
   font-size: 20px;
   font-weight: bold;
 }

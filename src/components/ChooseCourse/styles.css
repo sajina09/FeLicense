@@ -7,7 +7,19 @@
 
 .section-course {
   margin: 1rem;
-  width: 40%;
+  width: 80%;
+}
+
+.heading-container {
+  margin: 16px 0 0 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.search-input {
+  width: 20%;
 }
 
 .section-title-course {
@@ -24,7 +36,7 @@
 }
 
 .fields-container {
-  max-width: 60%;
+  max-width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;

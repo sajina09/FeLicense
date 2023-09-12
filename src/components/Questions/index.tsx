@@ -1,23 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { Card, Collapse, Radio } from "antd";
+import React, { FC, useEffect, useState } from "react";
+import { Card, Collapse, Radio, Spin } from "antd";
 import { useAppDispatch, useAppSelector } from "hooks/useApp";
 import { fetchSingleModelSet } from "redux/subjectSlice";
 import { useParams } from "react-router-dom";
 import "./styles.css";
 import CountdownTimer from "components/Timer";
+import { fetchCustomizedModelSet } from "redux/modelSet/modelsetSlice";
 
 export type IQuestionProps = {
   isTimedExam?: boolean; // Difference between exam and practice questions
 };
 
-const QuestionComponent: React.FC = () => {
+const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
   const dispatch = useAppDispatch();
-  const { id: modelsetId } = useParams();
+  const { id: modelSetId } = useParams();
 
-  const { singleModelSet } = useAppSelector((state) => state.subjects);
+  const { singleModelSet, isSingleModelSetLoading } = useAppSelector(
+    (state) => state.subjects
+  );
+  const { customizedModelSet } = useAppSelector((state) => state.modelSets);
 
   useEffect(() => {
-    dispatch(fetchSingleModelSet({ modelsetId: modelsetId as string }));
+    dispatch(fetchSingleModelSet({ modelsetId: modelSetId as string }));
+    dispatch(
+      fetchCustomizedModelSet({
+        modelSetId: modelSetId as string,
+        numGroupA: 3,
+        numGroupB: 3,
+        shuffleQuestions: false,
+      })
+    );
   }, []);
 
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
@@ -45,14 +57,24 @@ const QuestionComponent: React.FC = () => {
 
   return (
     <div className="model-set-container">
-      <h1 style={{ textAlign: "center" }}>{modelSetName}</h1>
-      <div className="timer-container">
-        <div className="group-division">{/* Group A Group B */}</div>
-        <div className="timer">
-          Time Left
-          <CountdownTimer durationInMinutes={1} />
+      <h1 style={{ textAlign: "center" }}>
+        {modelSetName}{" "}
+        <Spin
+          style={{ top: "30vh", left: "30vh" }}
+          spinning={isSingleModelSetLoading}
+        />
+      </h1>
+
+      {isTimedExam && (
+        <div className="timer-container">
+          <div className="group-division">{/* Group A Group B */}</div>
+          <div className="timer">
+            Time Left
+            <CountdownTimer durationInMinutes={120} />
+          </div>
         </div>
-      </div>
+      )}
+
       {questions?.map((question: any, index: number) => {
         const userAnswer = userAnswers[question.id];
         const isCorrect = userAnswer === question.correct_answer;

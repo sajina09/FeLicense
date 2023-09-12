@@ -1,10 +1,15 @@
-import AvailableModelQuestion from "components/Button/AvailableModelQuestions";
 import ChooseCourse from "components/ChooseCourse";
 import LandingDescriptionBlock from "components/LandingDescriptionBlock";
 import Ticket from "components/Ticket";
 import React from "react";
+import FlagOfNepal from "assets/Flag_of_Nepal.png";
+import "./styles.css";
 
 const HomePage: React.FC = () => {
+  const openWikipedia = () => {
+    window.open("https://en.wikipedia.org/wiki/Nepal", "_blank");
+  };
+
   return (
     <div className="home-page">
       <div style={{ marginBottom: "5rem" }}></div>
@@ -19,12 +24,11 @@ const HomePage: React.FC = () => {
         <Ticket
           title={
             <>
-              Based on Nepal Engineering Council
-              {/* <img
-                style={{ maxWidth: "100%", height: "auto" }}
-                alt="flag of Nepal"
-                src={dummyImage}
-              ></img>{" "} */}
+              Based on &nbsp;
+              <span className="flag" onClick={openWikipedia}>
+                <img src={FlagOfNepal} alt="Flag" className="flag-image" />
+              </span>{" "}
+              Engineering Council
             </>
           }
           description="This is an online platform for all national and international students who are seeking Er. License from Nepal."

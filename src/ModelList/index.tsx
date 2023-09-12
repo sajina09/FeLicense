@@ -1,33 +1,39 @@
 import React from "react";
 import { Button, Card, List } from "antd";
 import BeButton from "components/Button";
-import { ModelSet } from "types";
 import { useNavigate } from "react-router-dom";
 import { DownloadOutlined } from "@ant-design/icons";
+import { useAppSelector } from "hooks/useApp";
 
-interface ModelListIProps {
-  modelSet: ModelSet[];
-}
-
-const ModelList: React.FC<ModelListIProps> = ({ modelSet }) => {
+const ModelList: React.FC = () => {
   const navigate = useNavigate();
+  const { modelSet, isModelSetLoading } = useAppSelector(
+    (state) => state.subjects
+  );
 
-  const handlePractice = (modelsetId: number, modelName: string) => {
+  console.log("modelSet", modelSet);
+
+  const handlePractice = (modelSetId: number, modelName: string) => {
     const fieldName = modelName.split(" (")[0];
     const extractedName = fieldName.replace(/\s+/g, "-");
 
-    navigate(`/${extractedName}/${modelsetId}`);
+    navigate(`/${extractedName}/${modelSetId}`);
+  };
+
+  const handleDownloadSet = (modelSetLink: string = "") => {
+    window.open(modelSetLink, "_blank");
   };
 
   const handleExam = () => {};
 
   return (
     <List
+      loading={isModelSetLoading}
       grid={{ gutter: 16, column: 3 }}
       dataSource={modelSet}
       renderItem={(item) => (
         <List.Item>
-          <Card title={item?.set_name}>
+          <Card loading={isModelSetLoading} title={item?.set_name}>
             <div
               style={{
                 display: "flex",
@@ -45,6 +51,7 @@ const ModelList: React.FC<ModelListIProps> = ({ modelSet }) => {
                 title="Download model set"
                 shape="round"
                 icon={<DownloadOutlined />}
+                onClick={() => handleDownloadSet(item.model_set_link)}
                 // size={"small"}
               />
             </div>

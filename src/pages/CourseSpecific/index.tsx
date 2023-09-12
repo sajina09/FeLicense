@@ -30,7 +30,6 @@ const courses = [
 ];
 
 const CourseSpecific: React.FC = () => {
-  const { modelSet } = useAppSelector((state) => state.subjects);
   const dispatch = useAppDispatch();
 
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -70,8 +69,8 @@ const CourseSpecific: React.FC = () => {
           </Col>
         </Row>
       </div>
-      <ModelList modelSet={modelSet} />
-      <Tabs
+      <ModelList />
+      {/* <Tabs
         tabPosition="top"
         defaultActiveKey="0"
         className="chapter-tab"
@@ -95,7 +94,7 @@ const CourseSpecific: React.FC = () => {
             )}
           </Tabs.TabPane>
         ))}
-      </Tabs>
+      </Tabs> */}
       <ChooseCourse />
     </div>
   );

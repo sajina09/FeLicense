@@ -14,4 +14,5 @@ export interface ModelSet {
   id: number;
   questions: Question[];
   set_name: string;
+  model_set_link: string;
 }

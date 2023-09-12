@@ -1,6 +1,7 @@
 .model-set-container {
   margin: auto;
   width: 60%;
+  min-height: 100vh;
   background-color: white;
 }
 
