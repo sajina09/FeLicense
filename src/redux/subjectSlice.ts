@@ -56,7 +56,7 @@ export interface SubjectsState {
   isModelSetLoading: boolean;
   isSingleModelSetLoading: boolean;
   fields: Subject[];
-  modelSet: ModelSet[];
+  modelSetList: ModelSet[];
   singleModelSet: ModelSet;
 }
 
@@ -64,7 +64,7 @@ const initialState: SubjectsState = {
   isModelSetLoading: false,
   isSingleModelSetLoading: false,
   fields: [],
-  modelSet: [],
+  modelSetList: [],
   singleModelSet: {
     id: 1,
     questions: [],
@@ -86,7 +86,7 @@ const subjectsSlice = createSlice({
       state.isModelSetLoading = true;
     });
     builder.addCase(fetchModelSet.fulfilled, (state, action) => {
-      state.modelSet = action.payload;
+      state.modelSetList = action.payload;
       state.isModelSetLoading = false;
     });
     builder.addCase(fetchSingleModelSet.pending, (state, action) => {

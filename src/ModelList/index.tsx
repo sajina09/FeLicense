@@ -7,11 +7,9 @@ import { useAppSelector } from "hooks/useApp";
 
 const ModelList: React.FC = () => {
   const navigate = useNavigate();
-  const { modelSet, isModelSetLoading } = useAppSelector(
+  const { modelSetList, isModelSetLoading } = useAppSelector(
     (state) => state.subjects
   );
-
-  console.log("modelSet", modelSet);
 
   const handlePractice = (modelSetId: number, modelName: string) => {
     const fieldName = modelName.split(" (")[0];
@@ -30,7 +28,7 @@ const ModelList: React.FC = () => {
     <List
       loading={isModelSetLoading}
       grid={{ gutter: 16, column: 3 }}
-      dataSource={modelSet}
+      dataSource={modelSetList}
       renderItem={(item) => (
         <List.Item>
           <Card loading={isModelSetLoading} title={item?.set_name}>

@@ -14,7 +14,13 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.group-division {
+  background-color: rgb(241, 245, 231);
+  height: 30px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
 .timer {
   display: flex;
   flex-direction: column;

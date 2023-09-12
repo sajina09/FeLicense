@@ -35,6 +35,12 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
 
   const questions = singleModelSet?.questions;
+  const groupAQuestions = questions.filter(
+    (question) => question.group === "a"
+  );
+  const groupBQuestions = questions.filter(
+    (question) => question.group === "b"
+  );
   const modelSetName = singleModelSet?.set_name;
 
   const handleAnswerChange = (questionId: number, selectedOption: string) => {
@@ -64,6 +70,12 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
           spinning={isSingleModelSetLoading}
         />
       </h1>
+
+      <div className="group-division">
+        {" "}
+        <div> Group A : {groupAQuestions?.length}</div>
+        <div>Group B : {groupBQuestions?.length} </div>
+      </div>
 
       {isTimedExam && (
         <div className="timer-container">
