@@ -24,9 +24,10 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
     dispatch(fetchSubjects());
   }, [dispatch]);
 
+
   useEffect(() => {
     // Filter fields based on the search query
-    const filtered = fields?.filter((field) =>
+    const filtered = (fields || [])?.filter((field) =>
       field.subject_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredFields(filtered || []); // Initialize as an empty array if filtered is undefined

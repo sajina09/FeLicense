@@ -24,11 +24,15 @@ export const fetchSubjects = createAsyncThunk(
 
 export const fetchModelSet = createAsyncThunk(
   "subjects/fetchModelSet",
-  async (_, { getState }) => {
+  async ({ subjectSlug }: { subjectSlug: string }, { getState }) => {
     try {
       const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-      const response = await axios.get<ModelSet[]>(`${baseUrl}modelsets/`);
+      const response = await axios.get<ModelSet[]>(`${baseUrl}modelsets/`, {
+        // params: {
+        //   subjectSlug,
+        // },
+      });
       return response.data;
     } catch (error) {
       throw error;
@@ -44,6 +48,42 @@ export const fetchSingleModelSet = createAsyncThunk(
 
       const response = await axios.get<ModelSet>(
         `${baseUrl}modelsets/${modelsetId}/`
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const fetchCustomizedModelSet = createAsyncThunk(
+  "subjects/fetchCustomizedModelSet",
+  async (
+    {
+      modelSetId,
+      numGroupA,
+      numGroupB,
+      shuffleQuestions,
+    }: {
+      modelSetId: string;
+      numGroupA: number;
+      numGroupB: number;
+      shuffleQuestions: boolean;
+    },
+    { getState }
+  ) => {
+    try {
+      const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+      const response = await axios.get<ModelSet>(
+        `${baseUrl}modelsets/${modelSetId}/get_customized_questions/`,
+        {
+          params: {
+            num_group_a: numGroupA,
+            num_group_b: numGroupB,
+            shuffle_questions: shuffleQuestions,
+          },
+        }
       );
       return response.data;
     } catch (error) {
@@ -93,6 +133,13 @@ const subjectsSlice = createSlice({
       state.isSingleModelSetLoading = true;
     });
     builder.addCase(fetchSingleModelSet.fulfilled, (state, action) => {
+      state.isSingleModelSetLoading = false;
+      state.singleModelSet = action.payload;
+    });
+    builder.addCase(fetchCustomizedModelSet.pending, (state, action) => {
+      state.isSingleModelSetLoading = true;
+    });
+    builder.addCase(fetchCustomizedModelSet.fulfilled, (state, action) => {
       state.isSingleModelSetLoading = false;
       state.singleModelSet = action.payload;
     });

@@ -1,11 +1,13 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Card, Collapse, Radio, Spin } from "antd";
 import { useAppDispatch, useAppSelector } from "hooks/useApp";
-import { fetchSingleModelSet } from "redux/subjectSlice";
+import {
+  fetchCustomizedModelSet,
+  fetchSingleModelSet,
+} from "redux/subjectSlice";
 import { useParams } from "react-router-dom";
 import "./styles.css";
 import CountdownTimer from "components/Timer";
-import { fetchCustomizedModelSet } from "redux/modelSet/modelsetSlice";
 
 export type IQuestionProps = {
   isTimedExam?: boolean; // Difference between exam and practice questions
@@ -18,27 +20,26 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
   const { singleModelSet, isSingleModelSetLoading } = useAppSelector(
     (state) => state.subjects
   );
-  const { customizedModelSet } = useAppSelector((state) => state.modelSets);
 
   useEffect(() => {
     dispatch(fetchSingleModelSet({ modelsetId: modelSetId as string }));
-    dispatch(
-      fetchCustomizedModelSet({
-        modelSetId: modelSetId as string,
-        numGroupA: 3,
-        numGroupB: 3,
-        shuffleQuestions: false,
-      })
-    );
+    // dispatch(
+    //   fetchCustomizedModelSet({
+    //     modelSetId: modelSetId as string,
+    //     numGroupA: 3,
+    //     numGroupB: 3,
+    //     shuffleQuestions: false,
+    //   })
+    // );
   }, []);
 
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
 
   const questions = singleModelSet?.questions;
-  const groupAQuestions = questions.filter(
+  const groupAQuestions = questions?.filter(
     (question) => question.group === "a"
   );
-  const groupBQuestions = questions.filter(
+  const groupBQuestions = questions?.filter(
     (question) => question.group === "b"
   );
   const modelSetName = singleModelSet?.set_name;
@@ -90,8 +91,6 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
       {questions?.map((question: any, index: number) => {
         const userAnswer = userAnswers[question.id];
         const isCorrect = userAnswer === question.correct_answer;
-
-        console.log("question", question);
 
         return (
           <Card
@@ -146,6 +145,7 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
             </Radio.Group>
             <Collapse
               style={{ marginTop: "10px" }}
+              onChange={() => {}}
               items={[
                 {
                   key: "1",

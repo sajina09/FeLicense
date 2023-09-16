@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import subjectsReducer from "./subjectSlice";
-import modelSetReducer from "./modelSet/modelsetSlice";
 
 const store = configureStore({
   reducer: {
     subjects: subjectsReducer,
-    modelSets: modelSetReducer,
   },
 });
 

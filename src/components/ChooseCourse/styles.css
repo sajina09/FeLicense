@@ -40,7 +40,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 48px;
+  gap: 64px;
 }
 
 .field-btn {
@@ -48,7 +48,7 @@
   color: rgb(10, 10, 10);
   border-radius: 20px;
   border: 0px;
-  width: 200px;
+  width: 250px;
   height: 60px;
   display: flex;
   align-items: center;

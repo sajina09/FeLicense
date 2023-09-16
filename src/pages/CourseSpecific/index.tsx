@@ -1,63 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { Col, Row, Tabs } from "antd";
+import React, { useEffect } from "react";
+import { Col, Row } from "antd";
 import Ticket from "components/Ticket";
 import "./styles.css";
 import ChooseCourse from "components/ChooseCourse";
-import SubtopicComponent from "components/SubtopicComponent";
 
 import ModelList from "ModelList";
 import { Helmet } from "react-helmet-async";
-import { useAppDispatch, useAppSelector } from "hooks/useApp";
+import { useAppDispatch } from "hooks/useApp";
 import { fetchModelSet } from "redux/subjectSlice";
-
-interface Course {
-  id: string;
-  title: string;
-}
-
-const courses = [
-  {
-    id: "1",
-    title: "Chapter 1",
-    url: "https://example.com/course1",
-  },
-  {
-    id: "2",
-    title: "Chapter 2",
-    url: "https://example.com/course2",
-  },
-  // Add more course objects as needed
-];
+import { useParams } from "react-router-dom";
 
 const CourseSpecific: React.FC = () => {
   const dispatch = useAppDispatch();
-
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const { name: subjectName } = useParams();
 
   useEffect(() => {
-    dispatch(fetchModelSet());
+    dispatch(fetchModelSet({ subjectSlug: subjectName || "" }));
   }, []);
-
-  const handleCourseClick = (course: Course) => {
-    setSelectedCourse(course);
-  };
 
   return (
     <div className="course-specific-container">
       <Helmet>
-        <title>Syllabus</title>
+        <title>{subjectName}</title>
         <meta
           name="description"
-          content="Syllabus for nec engineering license of IT."
+          content="Subjects for nec engineering license of IT."
         />
-        <link
-          rel="canonical"
-          href="/Information-Technology-&-Telecommunication-Engineering"
-        />
+        <link rel="canonical" href="/subjectName" />
       </Helmet>
       <div className="course-specific-name" style={{ width: "400px" }}>
         <Ticket
-          title="Information Technology"
+          title={<>{subjectName}</>}
           description="A detailed, reliable view of your IT knowledge in a quick convenient format."
         />
       </div>
@@ -70,31 +43,6 @@ const CourseSpecific: React.FC = () => {
         </Row>
       </div>
       <ModelList />
-      {/* <Tabs
-        tabPosition="top"
-        defaultActiveKey="0"
-        className="chapter-tab"
-        onChange={(key) => {
-          const course = courses.find((course) => course.id === key);
-          if (course) {
-            setSelectedCourse(course);
-          } else {
-            setSelectedCourse(null);
-          }
-        }}
-      >
-        {courses.map((course) => (
-          <Tabs.TabPane tab={course.title} key={course.id}>
-            {selectedCourse && (
-              <div>
-                <SubtopicComponent
-                //   courseId={selectedCourse.id}
-                />
-              </div>
-            )}
-          </Tabs.TabPane>
-        ))}
-      </Tabs> */}
       <ChooseCourse />
     </div>
   );

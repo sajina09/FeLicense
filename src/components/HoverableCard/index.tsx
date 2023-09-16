@@ -9,7 +9,6 @@ export interface HoverableCardProps {
 
 const HoverableCard: FC<HoverableCardProps> = ({ title }) => {
   const handlePractice = () => {
-    console.log("hi");
   };
   const handleExam = () => {};
   return (
