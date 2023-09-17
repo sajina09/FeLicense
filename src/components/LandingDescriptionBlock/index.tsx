@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { Row, Col } from "antd";
 import "./styles.css";
 import CardWithImage from "components/CardWithImage";
@@ -11,7 +11,7 @@ const data = [
     img: dummyImage,
     title: "Complete practice question ",
     description:
-      "Several questions per subject and old model questions are available.",
+      "Several questions per subject and NEC model questions are available.",
   },
   {
     img: dummyImage,
@@ -22,11 +22,12 @@ const data = [
   {
     img: dummyImage,
     title: "Answer and analysis of MCQ's",
-    description: "Just click once, to verify your answers and self analyzing your ability.",
+    description:
+      "Just click once, to verify your answers and self analyze your ability.",
   },
 ];
 
-const LandingDescriptionBlock = () => {
+const LandingDescriptionBlock: FC = () => {
   return (
     <div className="container">
       <div className="section">
@@ -38,7 +39,7 @@ const LandingDescriptionBlock = () => {
         <Row>
           <Col>
             <p className="section-content">
-              Prove your Engineering knowledge without the hassle.
+              Judge your Engineering knowledge without the hassle.
             </p>
           </Col>
         </Row>

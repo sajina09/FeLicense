@@ -1,70 +1,59 @@
-import React from "react";
-import { Row, Col } from "antd";
-import "./styles.css";
+import { Tabs } from "antd";
+import SubtopicComponent from "components/SubtopicComponent";
+import React, { FC, useState } from "react";
 
-interface Subtopic {
+interface Course {
   id: string;
   title: string;
-  subtopics?: string[];
 }
 
-interface Chapter {
-  id: string;
-  title: string;
-  subtopics: Subtopic[];
-}
+const courses = [
+  {
+    id: "1",
+    title: "Chapter 1",
+    url: "https://example.com/course1",
+  },
+  {
+    id: "2",
+    title: "Chapter 2",
+    url: "https://example.com/course2",
+  },
+  // Add more course objects as needed
+];
 
-interface CourseData {
-  chapters: Chapter[];
-}
+const Syllabus: FC = () => {
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
-const courseData: CourseData = {
-  chapters: [
-    {
-      id: "1",
-      title:
-        "Chapter 1 : Concept of Basic ELectrical and Electronics Engineering",
-      subtopics: [
-        {
-          id: "1",
-          title: "1.1 Basic Concept",
-          subtopics: [
-            "Second Subtopic",
-            "Second Sub Second Subtopictopic Second Subtopic Second Subtopic Second Subtopic",
-          ],
-        },
-        { id: "2", title: "1.2 Second Subtopic" },
-        { id: "3", title: "1.3 Third Subtopic" },
-        { id: "4", title: "1.4 Fourth Subtopic" },
-        { id: "5", title: "1.5 Fifth Subtopic" },
-        { id: "6", title: "1.6 Sixth Subtopic" },
-      ],
-    },
-  ],
-};
-
-const SubtopicComponent: React.FC = () => {
+  const handleCourseClick = (course: Course) => {
+    setSelectedCourse(course);
+  };
   return (
-    <div>
-      {courseData.chapters.map((chapter) => (
-        <div key={chapter.id}>
-          <h3>{chapter.title}</h3>
-          <Row gutter={[16, 16]} wrap>
-            {chapter.subtopics.map((subtopic) => (
-              <Col key={subtopic.id} span={8}>
-                <div className="chapter-name">{subtopic.title}</div>
-                {subtopic?.subtopics?.map((subtopic) => (
-                  <ul>
-                    <li>{subtopic}</li>
-                  </ul>
-                ))}
-              </Col>
-            ))}
-          </Row>
-        </div>
+    <Tabs
+      tabPosition="top"
+      defaultActiveKey="0"
+      className="chapter-tab"
+      onChange={(key) => {
+        const course = courses.find((course) => course.id === key);
+        if (course) {
+          setSelectedCourse(course);
+        } else {
+          setSelectedCourse(null);
+        }
+      }}
+    >
+      {courses.map((course) => (
+        <Tabs.TabPane tab={course.title} key={course.id}>
+          {selectedCourse && (
+            <div>
+              <SubtopicComponent
+              //   courseId={selectedCourse.id}
+              />
+            </div>
+          )}
+        </Tabs.TabPane>
       ))}
-    </div>
+    </Tabs>
   );
 };
 
-export default SubtopicComponent;
+export default Syllabus;

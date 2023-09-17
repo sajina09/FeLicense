@@ -1,5 +1,11 @@
 import React from "react";
+import logo from "assets/logo.png";
 import "./styles.css";
+import {
+  FacebookOutlined,
+  InstagramOutlined,
+  MessageOutlined,
+} from "@ant-design/icons";
 
 const Footer: React.FC = () => {
   return (
@@ -7,8 +13,8 @@ const Footer: React.FC = () => {
       <div className="footer">
         <div className="footer-column">
           <h2>Contact Us</h2>
-          <p className="footer-small">Email :support@beer.com</p>
-          <p className="footer-small">Phone : 123-456-7890</p>
+          <p className="footer-small">Email: becomeaner@gmail.com</p>
+          <p className="footer-small">Phone: 123-456-7890</p>
         </div>
         <div className="footer-column">
           <h2>Useful Links</h2>
@@ -18,20 +24,32 @@ const Footer: React.FC = () => {
           <p className="footer-small">Programs</p>
         </div>
         <div className="footer-column">
-          <h2></h2>
-          <div className="footer-logo">
-            <img src="/path/to/company-logo.png" alt="Company Logo" />
-          </div>
+          <h2>
+            <img src={logo} alt="Logo" className="logo-image" />
+          </h2>
+          <div className="footer-logo"></div>
           <p className="footer-small">Join the conversation</p>
           <div className="footer-social-icons">
-            <a href="https://www.facebook.com">
-              <img src="/path/to/facebook-logo.png" alt="Facebook" />
+            <a
+              href="https://www.facebook.com"
+              target={"_blank"}
+              rel="noreferrer"
+            >
+              <FacebookOutlined
+                style={{ fontSize: "24px", color: "#1877f2" }}
+              />
             </a>
-            <a href="https://www.instagram.com">
-              <img src="/path/to/instagram-logo.png" alt="Instagram" />
+            <a
+              href="https://www.instagram.com"
+              target={"_blank"}
+              rel="noreferrer"
+            >
+              <InstagramOutlined
+                style={{ fontSize: "24px", color: "#e1306c" }}
+              />
             </a>
-            <a href="https://www.viber.com">
-              <img src="/path/to/viber-logo.png" alt="Viber" />
+            <a href="https://www.viber.com" target={"_blank"} rel="noreferrer">
+              <MessageOutlined style={{ fontSize: "24px", color: "#7d71c4" }} />
             </a>
           </div>
         </div>

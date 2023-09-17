@@ -1,0 +1,14 @@
+/* styles.css */
+.flag {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.4s ease-in-out;
+}
+
+.flag:hover {
+  transform: scale(1.1);
+}
+
+.flag-image {
+  height: 35px; /* Set the initial height closer to the hover height */
+}

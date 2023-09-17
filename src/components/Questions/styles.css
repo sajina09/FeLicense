@@ -1,0 +1,33 @@
+.model-set-container {
+  margin: auto;
+  width: 60%;
+  min-height: 100vh;
+  background-color: white;
+}
+
+.timer-container {
+  background-color: antiquewhite;
+  height: 5rem;
+  display: flex;
+  flex-direction: row;
+  padding: 0px 30px;
+  align-items: center;
+  justify-content: space-between;
+}
+.group-division {
+  background-color: rgb(241, 245, 231);
+  height: 30px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

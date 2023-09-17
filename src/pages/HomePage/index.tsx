@@ -2,26 +2,39 @@ import ChooseCourse from "components/ChooseCourse";
 import LandingDescriptionBlock from "components/LandingDescriptionBlock";
 import Ticket from "components/Ticket";
 import React from "react";
+import FlagOfNepal from "assets/Flag_of_Nepal.png";
+import "./styles.css";
 
 const HomePage: React.FC = () => {
+  const openWikipedia = () => {
+    window.open("https://en.wikipedia.org/wiki/Nepal", "_blank");
+  };
+
   return (
     <div className="home-page">
       <div style={{ marginBottom: "5rem" }}></div>
-      <div style={{ width: "40%", height: "40vh" }}>
+      <div
+        style={{
+          width: "40%",
+          height: "40vh",
+          marginLeft: "10rem",
+          marginTop: "18rem",
+        }}
+      >
         <Ticket
           title={
             <>
-              Based on Nepal Engineering Council
-              {/* <img
-                style={{ maxWidth: "100%", height: "auto" }}
-                alt="flag of Nepal"
-                src={dummyImage}
-              ></img>{" "} */}
+              Based on &nbsp;
+              <span className="flag" onClick={openWikipedia}>
+                <img src={FlagOfNepal} alt="Flag" className="flag-image" />
+              </span>{" "}
+              Engineering Council
             </>
           }
           description="This is an online platform for all national and international students who are seeking Er. License from Nepal."
         ></Ticket>
       </div>
+
       <LandingDescriptionBlock />
       <ChooseCourse />
 
@@ -29,13 +42,14 @@ const HomePage: React.FC = () => {
         style={{
           width: "40%",
           float: "right",
-          margin: "1rem",
+          margin: "10rem",
+          // marginBottom: "2rem",
         }}
       >
         <Ticket
           title={
             <h1>
-              Get tips and trick <br></br> straight in your <br></br> inbox.
+              Get tips and trick <br></br> straight in your <br></br> Inbox.
             </h1>
           }
           button="Contact Us"

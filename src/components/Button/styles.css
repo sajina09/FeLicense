@@ -1,11 +1,14 @@
 .custom-button {
+  background-color: rgb(128, 198, 223);
+  color: #fff !important;
   border-radius: 15px;
-  color: #fff;
-  background-color: #6098ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .custom-button:hover {
-  background-color: #4568a2;
-  color: #fff;
-
+  background-color: #f90;
+  color: #fff !important;
+  border: #f90;
 }
