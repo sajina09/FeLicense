@@ -16,7 +16,7 @@ const CourseSpecific: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchModelSet({ subjectSlug: subjectName || "" }));
-  }, []);
+  }, [subjectName, dispatch]);
 
   return (
     <div className="course-specific-container">

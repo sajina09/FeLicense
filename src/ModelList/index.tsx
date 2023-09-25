@@ -26,6 +26,7 @@ const ModelList: React.FC = () => {
 
   return (
     <List
+      style={{ width: "90%", margin: "auto" }}
       loading={isModelSetLoading}
       grid={{ gutter: 16, column: 3 }}
       dataSource={modelSetList}
@@ -50,7 +51,6 @@ const ModelList: React.FC = () => {
                 shape="round"
                 icon={<DownloadOutlined />}
                 onClick={() => handleDownloadSet(item.model_set_link)}
-                // size={"small"}
               />
             </div>
           </Card>

@@ -9,13 +9,13 @@ const dummyImage =
 const data = [
   {
     img: dummyImage,
-    title: "Complete practice question ",
+    title: "Complete practice question",
     description:
       "Several questions per subject and NEC model questions are available.",
   },
   {
     img: dummyImage,
-    title: "Get your scores instantly.",
+    title: "Get your scores instantly",
     description:
       "Complete your questions and get instant answers just below the options.",
   },

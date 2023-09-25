@@ -24,7 +24,7 @@ export const fetchSubjects = createAsyncThunk(
 
 export const fetchModelSet = createAsyncThunk(
   "subjects/fetchModelSet",
-  async ({ subjectSlug }: { subjectSlug: string }, { getState }) => {
+  async ({ subjectSlug }: { subjectSlug?: string }, { getState }) => {
     try {
       const baseUrl = process.env.REACT_APP_API_BASE_URL;
 

@@ -4,7 +4,7 @@ import "./styles.css";
 interface CardWithImageProps {
   title: string;
   description: string;
-  imageSrc: string;
+  imageSrc?: string;
 }
 
 const CardWithImage: React.FC<CardWithImageProps> = ({
@@ -14,9 +14,11 @@ const CardWithImage: React.FC<CardWithImageProps> = ({
 }) => {
   return (
     <div className="card-with-image">
-      <div className="card-image-container">
-        <img className="card-image" src={imageSrc} alt="Card" />
-      </div>
+      {imageSrc && (
+        <div className="card-image-container">
+          <img className="card-image" src={imageSrc} alt="Card" />
+        </div>
+      )}
       <div className="card-content">
         <h3 className="card-title">{title}</h3>
         <p className="card-description">{description}</p>

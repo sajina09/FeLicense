@@ -47,4 +47,14 @@ h2 {
   color: white;
   font-weight: bold;
 }
-/* Add any additional styling as needed */
+.about-us {
+  padding: 0;
+  margin: 0;
+  color: white;
+  font-weight: bold;
+}
+
+.about-us:hover {
+  background-color: rgb(247, 244, 240);
+  padding: 0px 5px;
+}
