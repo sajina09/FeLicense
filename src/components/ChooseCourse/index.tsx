@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
 import { useAppDispatch, useAppSelector } from "hooks/useApp";
 import { fetchSubjects, Subject } from "redux/subjectSlice";
-import SpinIcon from "SpinIcon";
 
 interface ChooseCourseProps {
   showAll?: boolean;
@@ -23,7 +22,6 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
   useEffect(() => {
     dispatch(fetchSubjects());
   }, [dispatch]);
-
 
   useEffect(() => {
     // Filter fields based on the search query

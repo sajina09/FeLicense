@@ -1,5 +1,6 @@
 import AboutUs from "components/About Us";
 import QuestionComponent from "components/Questions";
+import ScrollToTop from "components/ScrollToTop";
 import React from "react";
 import { RouteObject, useRoutes } from "react-router-dom";
 
@@ -24,6 +25,9 @@ export default function AppRoutes() {
   const router = useRoutes(routes);
 
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>{router}</React.Suspense>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <ScrollToTop />
+      {router}
+    </React.Suspense>
   );
 }

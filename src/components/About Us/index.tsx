@@ -13,7 +13,7 @@ const AboutUs: FC = () => {
           backgroundImage: `url(${maskImage})`,
         }}
       ></div>
-      <h1>About Beer: Become an Engineer</h1>
+      <h1 className="heading">About Beer : Become an Engineer</h1>
       <p className="description">
         We are a group of engineering students who embarked on a mission to make
         the journey to engineering licensure exams easier for students like you.

@@ -23,10 +23,10 @@ const HomePage: React.FC = () => {
           top: 0,
           left: 0,
           width: "100%",
-          height: "100%", //TODO : Fix height in big screen
+          height: "80%", //TODO : Fix height in big screen
           backgroundImage: `url(${dummyImage})`,
-          // backgroundSize: "cover",
-          // backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
           filter: "blur(5px)",
         }}
       ></div>
@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
           width: "40%",
           height: "40vh",
           marginLeft: "10rem",
-          marginTop: "28rem",
+          marginTop: "32rem",
           position: "relative",
         }}
       >

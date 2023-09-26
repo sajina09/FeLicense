@@ -119,14 +119,23 @@ const subjectsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchSubjects.fulfilled, (state, action) => {
-      state.fields = action.payload;
+      const sortedData = action.payload
+        .slice()
+        .sort((a, b) => a.subject_name.localeCompare(b.subject_name));
+
+      state.fields = sortedData;
     });
 
     builder.addCase(fetchModelSet.pending, (state, action) => {
       state.isModelSetLoading = true;
     });
     builder.addCase(fetchModelSet.fulfilled, (state, action) => {
-      state.modelSetList = action.payload;
+      const sortedData = action.payload
+        .slice()
+        .sort((a, b) => a.set_name.localeCompare(b.set_name));
+
+      state.modelSetList = sortedData;
+
       state.isModelSetLoading = false;
     });
     builder.addCase(fetchSingleModelSet.pending, (state, action) => {

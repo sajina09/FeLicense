@@ -18,21 +18,48 @@ const CourseSpecific: React.FC = () => {
     dispatch(fetchModelSet({ subjectSlug: subjectName || "" }));
   }, [subjectName, dispatch]);
 
+  const subjectNameToDisplay = subjectName?.replace(/-/g, " ");
+
+  const dummyImage =
+    "https://media.istockphoto.com/id/1322517295/photo/cyber-security-it-engineer-working-on-protecting-network-against-cyberattack-from-hackers-on.jpg?s=1024x1024&w=is&k=20&c=khzPFuAhehJz0IH8_miYkL4_-Zi4IPBF2pfLBtKE4k0=";
+
   return (
     <div className="course-specific-container">
       <Helmet>
-        <title>{subjectName}</title>
+        <title>{subjectNameToDisplay}</title>
         <meta
           name="description"
           content="Subjects for nec engineering license of IT."
         />
         <link rel="canonical" href="/subjectName" />
       </Helmet>
-      <div className="course-specific-name" style={{ width: "400px" }}>
-        <Ticket
-          title={<>{subjectName}</>}
-          description="A detailed, reliable view of your IT knowledge in a quick convenient format."
-        />
+
+      <div className="course-specific-name" style={{ width: "600px" }}>
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "60%", //TODO : Fix height in big screen
+            backgroundImage: `url(${dummyImage})`,
+            backgroundSize: "cover",
+            // backgroundRepeat: "no-repeat",
+            filter: "blur(2px)",
+          }}
+        ></div>
+        <div
+          style={{
+            marginTop: "50%",
+            marginLeft: "10rem",
+            marginBottom: "5rem",
+          }}
+        >
+          <Ticket
+            title={<>{subjectName}</>}
+            description="A detailed, reliable view of your IT knowledge in a quick convenient format."
+          />
+        </div>
       </div>
 
       <div className="section">

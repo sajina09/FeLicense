@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Row, Col } from "antd";
 import "./styles.css";
 import CardWithImage from "components/CardWithImage";
+import { useNavigate } from "react-router-dom";
 
 //TODO change the respective images accordingly
 const dummyImage =
@@ -12,20 +13,27 @@ const data = [
     img: dummyImage,
     title: "All model questions",
     description: "Find model questions of your respective field",
+    route: "all-model-questions",
   },
   {
     img: dummyImage,
     title: "Take Exam",
     description: "Attempt an exam and see where you stand",
+    route: "all-model-questions",
   },
   {
     img: dummyImage,
     title: "All engineering fields",
-    description: "Find your respective engineering field",
+    description: "Explore your respective engineering field",
+    route: "all-fields",
   },
 ];
 
 const Feature: FC = () => {
+  const navigate = useNavigate();
+  const handleCardClick = (item: string) => {
+    navigate("/all-fields");
+  };
   return (
     <div className="container">
       <div className="section">
@@ -41,14 +49,22 @@ const Feature: FC = () => {
         </Row> */}
       </div>
 
-      <Row className="CardWithImage-container" gutter={16}>
+      <Row className="feature-container" gutter={32}>
         {data.map((item, index) => (
           <Col span={8} key={index}>
-            <CardWithImage
-              title={item.title}
-              description={item.description}
-              imageSrc={item.img}
-            />
+            <div
+              className="hoverable-card"
+              onClick={() => {
+                console.log("item", item.route);
+                handleCardClick(item.route);
+              }}
+            >
+              <CardWithImage
+                title={item.title}
+                description={item.description}
+                imageSrc={item.img}
+              />
+            </div>
           </Col>
         ))}
       </Row>
