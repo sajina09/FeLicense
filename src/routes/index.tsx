@@ -1,6 +1,7 @@
 import AboutUs from "components/About Us";
 import QuestionComponent from "components/Questions";
 import ScrollToTop from "components/ScrollToTop";
+import AllModelQuestions from "pages/AllModelQuestions";
 import React from "react";
 import { RouteObject, useRoutes } from "react-router-dom";
 
@@ -14,6 +15,7 @@ export const routes: RouteObject[] = [
     children: [
       { index: true, element: <Home /> },
       { path: "/all-fields", element: <AllCourses /> },
+      { path: "/all-model-questions", element: <AllModelQuestions /> },
       { path: "about-us", element: <AboutUs /> },
       { path: "/:name", element: <CourseSpecific /> },
       { path: "/:name/:id", element: <QuestionComponent /> },

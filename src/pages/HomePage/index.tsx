@@ -54,7 +54,7 @@ const HomePage: React.FC = () => {
       </div>
 
       <Feature />
-      <LandingDescriptionBlock />
+      {/* <LandingDescriptionBlock /> */}
       <ChooseCourse />
 
       <div

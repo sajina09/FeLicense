@@ -13,7 +13,7 @@ const data = [
     img: dummyImage,
     title: "All model questions",
     description: "Find model questions of your respective field",
-    route: "all-model-questions",
+    route: "All-model-questions",
   },
   {
     img: dummyImage,
@@ -25,14 +25,14 @@ const data = [
     img: dummyImage,
     title: "All engineering fields",
     description: "Explore your respective engineering field",
-    route: "all-fields",
+    route: "All-fields",
   },
 ];
 
 const Feature: FC = () => {
   const navigate = useNavigate();
   const handleCardClick = (item: string) => {
-    navigate("/all-fields");
+    navigate(item);
   };
   return (
     <div className="container">

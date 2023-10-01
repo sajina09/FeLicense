@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Button, Input } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import { useAppDispatch, useAppSelector } from "hooks/useApp";
 import { fetchSubjects, Subject } from "redux/subjectSlice";

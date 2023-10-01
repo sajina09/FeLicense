@@ -29,7 +29,7 @@ const CourseSpecific: React.FC = () => {
         <title>{subjectNameToDisplay}</title>
         <meta
           name="description"
-          content="Subjects for nec engineering license of IT."
+          content="Subjects for NEC engineering license of IT."
         />
         <link rel="canonical" href="/subjectName" />
       </Helmet>
