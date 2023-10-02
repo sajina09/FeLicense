@@ -4,21 +4,39 @@ import Ticket from "components/Ticket";
 import React from "react";
 import FlagOfNepal from "assets/Flag_of_Nepal.png";
 import "./styles.css";
+import Feature from "components/Features";
 
 const HomePage: React.FC = () => {
   const openWikipedia = () => {
     window.open("https://en.wikipedia.org/wiki/Nepal", "_blank");
   };
 
+  const dummyImage =
+    "https://thumbs.dreamstime.com/z/innovative-architecture-civil-engineering-plan-innovative-architecture-civil-engineering-building-construction-project-170431310.jpg?w=992";
+
   return (
     <div className="home-page">
       <div style={{ marginBottom: "5rem" }}></div>
       <div
         style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "80%", //TODO : Fix height in big screen
+          backgroundImage: `url(${dummyImage})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          filter: "blur(5px)",
+        }}
+      ></div>
+      <div
+        style={{
           width: "40%",
           height: "40vh",
           marginLeft: "10rem",
-          marginTop: "18rem",
+          marginTop: "32rem",
+          position: "relative",
         }}
       >
         <Ticket
@@ -35,7 +53,8 @@ const HomePage: React.FC = () => {
         ></Ticket>
       </div>
 
-      <LandingDescriptionBlock />
+      <Feature />
+      {/* <LandingDescriptionBlock /> */}
       <ChooseCourse />
 
       <div

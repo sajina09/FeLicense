@@ -1,9 +1,8 @@
-import BeButton from "components/Button";
 import { FC } from "react";
 import "./styles.css";
-import { Link, useNavigate } from "react-router-dom";
 import logo from "assets/logo.png";
 import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Navbar: FC = () => {
   const navigate = useNavigate();

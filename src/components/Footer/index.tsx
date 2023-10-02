@@ -6,22 +6,25 @@ import {
   InstagramOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "antd";
 
 const Footer: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <footer className="footer-container">
       <div className="footer">
         <div className="footer-column">
           <h2>Contact Us</h2>
           <p className="footer-small">Email: becomeaner@gmail.com</p>
-          <p className="footer-small">Phone: 123-456-7890</p>
+          {/* <p className="footer-small">Phone: 123-456-7890</p> */}
         </div>
         <div className="footer-column">
           <h2>Useful Links</h2>
           <p className="footer-small">Practice</p>
           <p className="footer-small">Mock Test</p>
           <p className="footer-small">About Us</p>
-          <p className="footer-small">Programs</p>
+          {/* <p className="footer-small">Programs</p> */}
         </div>
         <div className="footer-column">
           <h2>
@@ -39,7 +42,7 @@ const Footer: React.FC = () => {
                 style={{ fontSize: "24px", color: "#1877f2" }}
               />
             </a>
-            <a
+            {/* <a
               href="https://www.instagram.com"
               target={"_blank"}
               rel="noreferrer"
@@ -50,12 +53,21 @@ const Footer: React.FC = () => {
             </a>
             <a href="https://www.viber.com" target={"_blank"} rel="noreferrer">
               <MessageOutlined style={{ fontSize: "24px", color: "#7d71c4" }} />
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
       <div className="footer-copyright">
-        Copyright@2023 | Be.Er | Er.Production | Login
+        Copyright@2023 | Be.Er | Er.Production |{" "}
+        <Button
+          className="about-us"
+          type="link"
+          onClick={() => {
+            navigate("/about-us");
+          }}
+        >
+          About Us
+        </Button>
       </div>
     </footer>
   );

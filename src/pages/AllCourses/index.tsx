@@ -1,7 +1,7 @@
 import ChooseCourse from "components/ChooseCourse";
-import React from "react";
+import { FC } from "react";
 
-const AllCourses = () => {
+const AllCourses: FC = () => {
   return (
     <>
       <ChooseCourse showAll />

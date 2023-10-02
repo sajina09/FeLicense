@@ -1,15 +1,26 @@
-import React from "react";
-import { Button, Card, List } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Card, Input, List } from "antd";
 import BeButton from "components/Button";
 import { useNavigate } from "react-router-dom";
 import { DownloadOutlined } from "@ant-design/icons";
 import { useAppSelector } from "hooks/useApp";
+import { ModelSet } from "types";
 
 const ModelList: React.FC = () => {
   const navigate = useNavigate();
   const { modelSetList, isModelSetLoading } = useAppSelector(
     (state) => state.subjects
   );
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [filteredFields, setFilteredFields] = useState<ModelSet[]>([]);
+
+  useEffect(() => {
+    // Filter fields based on the search query
+    const filtered = (modelSetList || [])?.filter((modelSet) =>
+      modelSet.set_name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredFields(filtered || []); // Initialize as an empty array if filtered is undefined
+  }, [searchQuery, modelSetList]);
 
   const handlePractice = (modelSetId: number, modelName: string) => {
     const fieldName = modelName.split(" (")[0];
@@ -22,41 +33,58 @@ const ModelList: React.FC = () => {
     window.open(modelSetLink, "_blank");
   };
 
-  const handleExam = () => {};
-
   return (
-    <List
-      loading={isModelSetLoading}
-      grid={{ gutter: 16, column: 3 }}
-      dataSource={modelSetList}
-      renderItem={(item) => (
-        <List.Item>
-          <Card loading={isModelSetLoading} title={item?.set_name}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
+    <>
+      {" "}
+      <div style={{ width: "300px", margin: "auto", marginBottom: "1.5rem" }}>
+        <Input
+          placeholder="Search model set"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          allowClear
+        />
+      </div>
+      <List
+        style={{ width: "90%", margin: "auto" }}
+        loading={isModelSetLoading}
+        grid={{ gutter: 16, column: 3 }}
+        dataSource={filteredFields ?? modelSetList}
+        renderItem={(item) => (
+          <List.Item>
+            <Card
+              loading={isModelSetLoading}
+              title={<p title={item?.set_name}>{item?.set_name}</p>}
             >
-              <BeButton
-                onClick={() => handlePractice(item?.id, item?.set_name)}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
               >
-                Practice
-              </BeButton>
-              <BeButton onClick={handleExam}> Take Exam</BeButton>
-              <Button
-                title="Download model set"
-                shape="round"
-                icon={<DownloadOutlined />}
-                onClick={() => handleDownloadSet(item.model_set_link)}
-                // size={"small"}
-              />
-            </div>
-          </Card>
-        </List.Item>
-      )}
-    />
+                <BeButton
+                  onClick={() => handlePractice(item?.id, item?.set_name)}
+                >
+                  Practice
+                </BeButton>
+                <BeButton
+                  onClick={() => handlePractice(item?.id, item?.set_name)}
+                >
+                  {" "}
+                  Take Exam
+                </BeButton>
+                <Button
+                  title="Download model set"
+                  shape="round"
+                  icon={<DownloadOutlined />}
+                  onClick={() => handleDownloadSet(item.model_set_link)}
+                />
+              </div>
+            </Card>
+          </List.Item>
+        )}
+      />
+    </>
   );
 };
 
