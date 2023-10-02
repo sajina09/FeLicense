@@ -8,6 +8,8 @@ export interface Question {
   group?: string;
   explanation?: string;
   correct_answer?: string;
+  userAnswered?: string;
+  isCollapseOpen?: boolean;
 }
 
 export interface ModelSet {

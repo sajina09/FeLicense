@@ -1,10 +1,7 @@
 import { FC, useEffect, useState } from "react";
-import { Card, Collapse, Radio, Spin } from "antd";
+import { Button, Card, Collapse, Radio, Spin } from "antd";
 import { useAppDispatch, useAppSelector } from "hooks/useApp";
-import {
-  fetchCustomizedModelSet,
-  fetchSingleModelSet,
-} from "redux/subjectSlice";
+import { fetchSingleModelSet } from "redux/subjectSlice";
 import { useParams } from "react-router-dom";
 import "./styles.css";
 import CountdownTimer from "components/Timer";
@@ -23,6 +20,7 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
 
   useEffect(() => {
     dispatch(fetchSingleModelSet({ modelsetId: modelSetId as string }));
+    setQuestions(singleModelSet?.questions);
     // dispatch(
     //   fetchCustomizedModelSet({
     //     modelSetId: modelSetId as string,
@@ -33,9 +31,8 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
     // );
   }, []);
 
-  const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
+  const [questions, setQuestions] = useState(singleModelSet?.questions);
 
-  const questions = singleModelSet?.questions;
   const groupAQuestions = questions?.filter(
     (question) => question.group === "a"
   );
@@ -44,22 +41,45 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
   );
   const modelSetName = singleModelSet?.set_name;
 
-  const handleAnswerChange = (questionId: number, selectedOption: string) => {
+  const handleAnswerChange = (selectedOption: string, index: number) => {
     setTimeout(() => {
-      setUserAnswers((prevAnswers) => ({
-        ...prevAnswers,
-        [questionId]: selectedOption,
-      }));
-    }, 100);
+      setQuestions((prevQuestions) => {
+        const updatedQuestions = [...prevQuestions];
+        updatedQuestions[index] = {
+          ...updatedQuestions[index],
+          userAnswered: selectedOption,
+        };
+        return updatedQuestions;
+      });
+    }, 50);
+  };
 
-    // if (selectedOption !== questions[questionId].correct_answer) {
-    //   setTimeout(() => {
-    //     setUserAnswers((prevAnswers) => ({
-    //       ...prevAnswers,
-    //       [questionId]: "black", // Change the text color back to black
-    //     }));
-    //   }, 3000); // 3 seconds
-    // }
+  const handleCollapse = (index: number) => {
+    setTimeout(() => {
+      setQuestions((prevQuestions) => {
+        const updatedQuestions = [...prevQuestions];
+        updatedQuestions[index] = {
+          ...updatedQuestions[index],
+          isCollapseOpen: !updatedQuestions[index]?.isCollapseOpen ?? true,
+          userAnswered: updatedQuestions[index]?.correct_answer,
+        };
+        return updatedQuestions;
+      });
+    }, 50);
+  };
+
+  const seeResult = () => {
+    let result = 0;
+    let attemptedQuestion = 0;
+    questions?.forEach((question) => {
+      if (question.correct_answer === question.userAnswered) {
+        result += 1;
+      }
+      if (question.userAnswered) {
+        attemptedQuestion += 1;
+      }
+    });
+    console.log("result", result, attemptedQuestion);
   };
 
   return (
@@ -89,8 +109,8 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
       )}
 
       {questions?.map((question: any, index: number) => {
-        const userAnswer = userAnswers[question.id];
-        const isCorrect = userAnswer === question.correct_answer;
+        const userAnswer = question?.userAnswered;
+        const isCorrect = question?.userAnswered === question?.correct_answer;
 
         return (
           <Card
@@ -110,7 +130,7 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
             <Radio.Group
               style={{ display: "flex", flexDirection: "column" }}
               className="vertical-radio-group"
-              onChange={(e) => handleAnswerChange(question.id, e.target.value)}
+              onChange={(e) => handleAnswerChange(e.target.value, index)}
             >
               {["A", "B", "C", "D"].map((option) => (
                 <Radio
@@ -145,7 +165,7 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
             </Radio.Group>
             <Collapse
               style={{ marginTop: "10px" }}
-              onChange={() => {}}
+              onChange={() => handleCollapse(index)}
               items={[
                 {
                   key: "1",
@@ -169,6 +189,9 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
           </Card>
         );
       })}
+      <div style={{ float: "right", margin: "1rem 10px 10px 0" }}>
+        <Button onClick={() => seeResult()}> See results</Button>
+      </div>
     </div>
   );
 };

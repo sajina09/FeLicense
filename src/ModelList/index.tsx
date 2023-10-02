@@ -51,7 +51,10 @@ const ModelList: React.FC = () => {
         dataSource={filteredFields ?? modelSetList}
         renderItem={(item) => (
           <List.Item>
-            <Card loading={isModelSetLoading} title={item?.set_name}>
+            <Card
+              loading={isModelSetLoading}
+              title={<p title={item?.set_name}>{item?.set_name}</p>}
+            >
               <div
                 style={{
                   display: "flex",
