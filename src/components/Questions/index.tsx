@@ -62,14 +62,17 @@ const QuestionComponent = () => {
       });
     }, 50);
 
-    questions?.forEach((question) => {
-      if (question.correct_answer === question.userAnswered) {
-        result += 1;
-      }
+    const attemptedQuestionsCount = questions?.reduce((count, question) => {
       if (question.userAnswered) {
-        setAttemptedQuestion(attemptedQuestion + 1);
+        count += 1;
+        if (question.correct_answer === question.userAnswered) {
+          result += 1;
+        }
       }
-    });
+      return count;
+    }, 0);
+
+    setAttemptedQuestion(attemptedQuestionsCount);
   };
 
   const handleCollapse = (index: number) => {
@@ -106,10 +109,9 @@ const QuestionComponent = () => {
 
       {isTimedExam && (
         <div className="timer-container">
-          <div className="group-division">{/* Group A Group B */}</div>
           <div className="timer">
             Time Left
-            <CountdownTimer durationInMinutes={120} />
+            {/* <CountdownTimer durationInMinutes={120} /> */}
           </div>
         </div>
       )}
@@ -138,36 +140,41 @@ const QuestionComponent = () => {
               className="vertical-radio-group"
               onChange={(e) => handleAnswerChange(e.target.value, index)}
             >
-              {["A", "B", "C", "D"].map((option) => (
-                <Radio
-                  key={option}
-                  value={option}
-                  style={{
-                    color:
-                      userAnswer && option === userAnswer
-                        ? isCorrect
-                          ? "green"
-                          : "red"
-                        : "black",
-                  }}
-                >
-                  <p
+              {["A", "B", "C", "D"].map((option) => {
+                let backgroundColor = "white";
+                let frontColor = "black";
+
+                if (!isTimedExam && userAnswer && option === userAnswer) {
+                  if (isCorrect) {
+                    backgroundColor = "#daedd1";
+                    frontColor = "#daedd1";
+                  } else {
+                    backgroundColor = "#f5dada";
+                    frontColor = "#f5dada";
+                  }
+                }
+
+                return (
+                  <Radio
+                    key={option}
+                    value={option}
                     style={{
-                      borderRadius: "8px",
-                      lineHeight: "0px",
-                      padding: "1px 8px",
-                      backgroundColor:
-                        userAnswer && option === userAnswer
-                          ? isCorrect
-                            ? "#daedd1"
-                            : "#f5dada"
-                          : "white",
+                      color: frontColor,
                     }}
-                    dangerouslySetInnerHTML={{ __html: question[option] }}
-                    className="custom-paragraph"
-                  />
-                </Radio>
-              ))}
+                  >
+                    <p
+                      style={{
+                        borderRadius: "8px",
+                        lineHeight: "0px",
+                        padding: "1px 8px",
+                        backgroundColor: backgroundColor,
+                      }}
+                      dangerouslySetInnerHTML={{ __html: question[option] }}
+                      className="custom-paragraph"
+                    />
+                  </Radio>
+                );
+              })}
             </Radio.Group>
             {!isTimedExam && (
               <Collapse

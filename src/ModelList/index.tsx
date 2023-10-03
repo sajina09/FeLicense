@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Input, List } from "antd";
 import BeButton from "components/Button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { DownloadOutlined } from "@ant-design/icons";
 import { useAppSelector } from "hooks/useApp";
 import { ModelSet } from "types";
 
 const ModelList: React.FC = () => {
   const navigate = useNavigate();
-  const { modelSetList, isModelSetLoading } = useAppSelector(
+  const location = useLocation();
+  const { allModelSetList, modelSetList, isModelSetLoading } = useAppSelector(
     (state) => state.subjects
   );
+
+  const currentPath = location.pathname;
+
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredFields, setFilteredFields] = useState<ModelSet[]>([]);
 
   useEffect(() => {
     // Filter fields based on the search query
-    const filtered = (modelSetList || [])?.filter((modelSet) =>
+    const filtered = (
+      currentPath === "/all-model-questions"
+        ? allModelSetList
+        : modelSetList || []
+    )?.filter((modelSet) =>
       modelSet.set_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredFields(filtered || []); // Initialize as an empty array if filtered is undefined
-  }, [searchQuery, modelSetList]);
+  }, [currentPath, allModelSetList, searchQuery, modelSetList]);
 
   const handlePractice = (modelSetId: number, modelName: string) => {
     const fieldName = modelName.split(" (")[0];
@@ -32,7 +40,9 @@ const ModelList: React.FC = () => {
     const fieldName = modelName.split(" (")[0];
     const extractedName = fieldName.replace(/\s+/g, "-");
 
-    navigate(`/${extractedName}/${modelSetId}`, { state: { isTimedExam: true } });
+    navigate(`/${extractedName}/${modelSetId}`, {
+      state: { isTimedExam: true },
+    });
   };
 
   const handleDownloadSet = (modelSetLink: string = "") => {

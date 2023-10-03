@@ -41,7 +41,7 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
             className="field-btn"
             title={field?.subject_name}
             onClick={() => {
-              navigateToField(field?.subject_name);
+              navigateToField(field?.subject_name, Number(field?.id));
             }}
           >
             <div
@@ -60,9 +60,9 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
     );
   };
 
-  const navigateToField = (id: string) => {
-    const fieldName = id.replace(/\s+/g, "-");
-    navigate(`/${fieldName}`);
+  const navigateToField = (name: string, subjectId: number) => {
+    const fieldName = name.replace(/\s+/g, "-");
+    navigate(`/${fieldName}`, { state: { subjectId } });
   };
 
   return (

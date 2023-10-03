@@ -40,6 +40,24 @@ export const fetchModelSet = createAsyncThunk(
   }
 );
 
+export const fetchSubjectModelSet = createAsyncThunk(
+  "subjects/fetchSubjectModelSet",
+  async ({ subjectId }: { subjectId?: number }, { getState }) => {
+    try {
+      const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+      const response = await axios.get<ModelSet[]>(`${baseUrl}modelsets/`, {
+        params: {
+          subject: subjectId,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
 export const fetchSingleModelSet = createAsyncThunk(
   "subjects/fetchSingleModelSet",
   async ({ modelsetId }: { modelsetId: string }, { getState }) => {
@@ -97,6 +115,7 @@ export interface SubjectsState {
   isSingleModelSetLoading: boolean;
   fields: Subject[];
   modelSetList: ModelSet[];
+  allModelSetList: ModelSet[];
   singleModelSet: ModelSet;
 }
 
@@ -105,6 +124,7 @@ const initialState: SubjectsState = {
   isSingleModelSetLoading: false,
   fields: [],
   modelSetList: [],
+  allModelSetList: [],
   singleModelSet: {
     id: 1,
     questions: [],
@@ -130,6 +150,19 @@ const subjectsSlice = createSlice({
       state.isModelSetLoading = true;
     });
     builder.addCase(fetchModelSet.fulfilled, (state, action) => {
+      const sortedData = action.payload
+        .slice()
+        .sort((a, b) => a.set_name.localeCompare(b.set_name));
+
+      state.allModelSetList = sortedData;
+
+      state.isModelSetLoading = false;
+    });
+
+    builder.addCase(fetchSubjectModelSet.pending, (state, action) => {
+      state.isModelSetLoading = true;
+    });
+    builder.addCase(fetchSubjectModelSet.fulfilled, (state, action) => {
       const sortedData = action.payload
         .slice()
         .sort((a, b) => a.set_name.localeCompare(b.set_name));

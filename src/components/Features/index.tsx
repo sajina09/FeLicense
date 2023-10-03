@@ -13,7 +13,7 @@ const data = [
     img: dummyImage,
     title: "All model questions",
     description: "Find model questions of your respective field",
-    route: "All-model-questions",
+    route: "all-model-questions",
   },
   {
     img: dummyImage,
@@ -25,7 +25,7 @@ const data = [
     img: dummyImage,
     title: "All engineering fields",
     description: "Explore your respective engineering field",
-    route: "All-fields",
+    route: "all-fields",
   },
 ];
 

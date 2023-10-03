@@ -16,7 +16,6 @@ const AllModelQuestions: React.FC = () => {
     dispatch(fetchModelSet({ subjectSlug: subjectName || "" }));
   }, [subjectName, dispatch]);
 
-
   return (
     <div className="course-specific-container">
       <Helmet>
@@ -52,7 +51,6 @@ const AllModelQuestions: React.FC = () => {
             </h1>
           </Col>
         </Row>
-       
       </div>
       <ModelList />
       <ChooseCourse />

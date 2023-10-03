@@ -7,16 +7,19 @@ import ChooseCourse from "components/ChooseCourse";
 import ModelList from "ModelList";
 import { Helmet } from "react-helmet-async";
 import { useAppDispatch } from "hooks/useApp";
-import { fetchModelSet } from "redux/subjectSlice";
-import { useParams } from "react-router-dom";
+import { fetchModelSet, fetchSubjectModelSet } from "redux/subjectSlice";
+import { useLocation, useParams } from "react-router-dom";
 
 const CourseSpecific: React.FC = () => {
   const dispatch = useAppDispatch();
   const { name: subjectName } = useParams();
+  const location = useLocation();
+  const subjectId = location.state?.subjectId || 0;
 
   useEffect(() => {
     dispatch(fetchModelSet({ subjectSlug: subjectName || "" }));
-  }, [subjectName, dispatch]);
+    dispatch(fetchSubjectModelSet({ subjectId: subjectId || 0 }));
+  }, [subjectId, subjectName, dispatch]);
 
   const subjectNameToDisplay = subjectName?.replace(/-/g, " ");
 
