@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Collapse, Radio, Spin } from "antd";
 import { useAppDispatch, useAppSelector } from "hooks/useApp";
 import { fetchSingleModelSet } from "redux/subjectSlice";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import "./styles.css";
 import CountdownTimer from "components/Timer";
 
@@ -10,17 +10,24 @@ export type IQuestionProps = {
   isTimedExam?: boolean; // Difference between exam and practice questions
 };
 
-const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
+const QuestionComponent = () => {
   const dispatch = useAppDispatch();
   const { id: modelSetId } = useParams();
+  const location = useLocation();
+  const isTimedExam = location.state?.isTimedExam || false;
 
   const { singleModelSet, isSingleModelSetLoading } = useAppSelector(
     (state) => state.subjects
   );
 
   useEffect(() => {
-    dispatch(fetchSingleModelSet({ modelsetId: modelSetId as string }));
-    setQuestions(singleModelSet?.questions);
+    dispatch(fetchSingleModelSet({ modelsetId: modelSetId as string }))
+      .then((response: any) => {
+        setQuestions(response?.payload?.questions);
+      })
+      .catch(() => {
+        //
+      });
     // dispatch(
     //   fetchCustomizedModelSet({
     //     modelSetId: modelSetId as string,
@@ -32,6 +39,8 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
   }, []);
 
   const [questions, setQuestions] = useState(singleModelSet?.questions);
+  const [attemptedQuestion, setAttemptedQuestion] = useState(0);
+  let result = 0;
 
   const groupAQuestions = questions?.filter(
     (question) => question.group === "a"
@@ -52,33 +61,30 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
         return updatedQuestions;
       });
     }, 50);
-  };
 
-  const handleCollapse = (index: number) => {
-    setTimeout(() => {
-      setQuestions((prevQuestions) => {
-        const updatedQuestions = [...prevQuestions];
-        updatedQuestions[index] = {
-          ...updatedQuestions[index],
-          isCollapseOpen: !updatedQuestions[index]?.isCollapseOpen ?? true,
-          userAnswered: updatedQuestions[index]?.correct_answer,
-        };
-        return updatedQuestions;
-      });
-    }, 50);
-  };
-
-  const seeResult = () => {
-    let result = 0;
-    let attemptedQuestion = 0;
     questions?.forEach((question) => {
       if (question.correct_answer === question.userAnswered) {
         result += 1;
       }
       if (question.userAnswered) {
-        attemptedQuestion += 1;
+        setAttemptedQuestion(attemptedQuestion + 1);
       }
     });
+  };
+
+  const handleCollapse = (index: number) => {
+    setQuestions((prevQuestions) => {
+      const updatedQuestions = [...prevQuestions];
+      updatedQuestions[index] = {
+        ...updatedQuestions[index],
+        isCollapseOpen: !updatedQuestions[index]?.isCollapseOpen ?? true,
+        userAnswered: updatedQuestions[index]?.correct_answer,
+      };
+      return updatedQuestions;
+    });
+  };
+
+  const seeResult = () => {
     console.log("result", result, attemptedQuestion);
   };
 
@@ -163,34 +169,35 @@ const QuestionComponent: FC<IQuestionProps> = ({ isTimedExam }) => {
                 </Radio>
               ))}
             </Radio.Group>
-            <Collapse
-              style={{ marginTop: "10px" }}
-              onChange={() => handleCollapse(index)}
-              items={[
-                {
-                  key: "1",
-                  label: "Answer",
-                  children: (
-                    <div
-                      style={{
-                        borderRadius: "8px",
-
-                        backgroundColor: "rgb(255 245 231)",
-                        padding: "10px",
-                        margin: 0,
-                      }}
-                      dangerouslySetInnerHTML={{ __html: question.explanation }}
-                    />
-                  ),
-                  // extra: <div>Similar questions</div>,
-                },
-              ]}
-            />
+            {!isTimedExam && (
+              <Collapse
+                style={{ marginTop: "10px" }}
+                onChange={() => handleCollapse(index)}
+                items={[
+                  {
+                    key: "1",
+                    label: "Answer",
+                    children: (
+                      <div
+                        className="collapse-answer"
+                        dangerouslySetInnerHTML={{
+                          __html: question.explanation,
+                        }}
+                      />
+                    ),
+                    // extra: <div>Similar questions</div>,
+                  },
+                ]}
+              />
+            )}
           </Card>
         );
       })}
       <div style={{ float: "right", margin: "1rem 10px 10px 0" }}>
-        <Button onClick={() => seeResult()}> See results</Button>
+        <Button onClick={() => seeResult()}>
+          {" "}
+          {isTimedExam ? "See Results" : "Submit"}{" "}
+        </Button>
       </div>
     </div>
   );

@@ -28,6 +28,12 @@ const ModelList: React.FC = () => {
 
     navigate(`/${extractedName}/${modelSetId}`);
   };
+  const handleTakeExam = (modelSetId: number, modelName: string) => {
+    const fieldName = modelName.split(" (")[0];
+    const extractedName = fieldName.replace(/\s+/g, "-");
+
+    navigate(`/${extractedName}/${modelSetId}`, { state: { isTimedExam: true } });
+  };
 
   const handleDownloadSet = (modelSetLink: string = "") => {
     window.open(modelSetLink, "_blank");
@@ -68,7 +74,7 @@ const ModelList: React.FC = () => {
                   Practice
                 </BeButton>
                 <BeButton
-                  onClick={() => handlePractice(item?.id, item?.set_name)}
+                  onClick={() => handleTakeExam(item?.id, item?.set_name)}
                 >
                   {" "}
                   Take Exam

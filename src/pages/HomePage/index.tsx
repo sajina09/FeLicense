@@ -1,5 +1,4 @@
 import ChooseCourse from "components/ChooseCourse";
-import LandingDescriptionBlock from "components/LandingDescriptionBlock";
 import Ticket from "components/Ticket";
 import React from "react";
 import FlagOfNepal from "assets/Flag_of_Nepal.png";
