@@ -147,13 +147,12 @@ const QuestionComponent = () => {
                 if (!isTimedExam && userAnswer && option === userAnswer) {
                   if (isCorrect) {
                     backgroundColor = "#daedd1";
-                    frontColor = "#daedd1";
+                    frontColor = "green";
                   } else {
                     backgroundColor = "#f5dada";
-                    frontColor = "#f5dada";
+                    frontColor = "red";
                   }
                 }
-
                 return (
                   <Radio
                     key={option}

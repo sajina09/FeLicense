@@ -55,7 +55,6 @@ const Feature: FC = () => {
             <div
               className="hoverable-card"
               onClick={() => {
-                console.log("item", item.route);
                 handleCardClick(item.route);
               }}
             >

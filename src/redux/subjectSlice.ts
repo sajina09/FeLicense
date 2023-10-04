@@ -117,6 +117,7 @@ export interface SubjectsState {
   modelSetList: ModelSet[];
   allModelSetList: ModelSet[];
   singleModelSet: ModelSet;
+  currentSubject: string;
 }
 
 const initialState: SubjectsState = {
@@ -131,12 +132,17 @@ const initialState: SubjectsState = {
     set_name: "",
     model_set_link: "",
   },
+  currentSubject: "",
 };
 
 const subjectsSlice = createSlice({
   name: "subjects",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setCurrentSubject: (state, { payload }: { payload: string }) => {
+      state.currentSubject = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchSubjects.fulfilled, (state, action) => {
       const sortedData = action.payload
@@ -188,4 +194,5 @@ const subjectsSlice = createSlice({
   },
 });
 
+export const { setCurrentSubject } = subjectsSlice.actions;
 export default subjectsSlice.reducer;

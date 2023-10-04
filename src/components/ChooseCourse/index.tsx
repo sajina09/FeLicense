@@ -3,7 +3,7 @@ import { Row, Col, Button, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import { useAppDispatch, useAppSelector } from "hooks/useApp";
-import { fetchSubjects, Subject } from "redux/subjectSlice";
+import { fetchSubjects, setCurrentSubject, Subject } from "redux/subjectSlice";
 
 interface ChooseCourseProps {
   showAll?: boolean;
@@ -62,6 +62,7 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
 
   const navigateToField = (name: string, subjectId: number) => {
     const fieldName = name.replace(/\s+/g, "-");
+    dispatch(setCurrentSubject(fieldName));
     navigate(`/${fieldName}`, { state: { subjectId } });
   };
 
