@@ -45,7 +45,7 @@ const HomePage: React.FC = () => {
               <span className="flag" onClick={openWikipedia}>
                 <img src={FlagOfNepal} alt="Flag" className="flag-image" />
               </span>{" "}
-              Engineering Council
+              Engineering Council.
             </>
           }
           description="This is an online platform for all national and international students who are seeking Er. License from Nepal."

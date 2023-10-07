@@ -1,0 +1,25 @@
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: middle;
+  height: 100vh;
+}
+
+.code {
+  font-size: 36px;
+  color: #df7070;
+  margin-bottom: 10px;
+}
+
+.code_message {
+  font-size: 24px;
+  color: #333;
+}
+
+.message {
+  text-align: center;
+}
+
+.button {
+  margin-top: 20px;
+}
