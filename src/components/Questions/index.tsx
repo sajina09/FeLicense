@@ -5,6 +5,8 @@ import { fetchSingleModelSet } from "redux/subjectSlice";
 import { useLocation, useParams } from "react-router-dom";
 import "./styles.css";
 import CountdownTimer from "components/Timer";
+import useModal from "hooks/useModal";
+import ResultModal from "components/ResultModal";
 
 export type IQuestionProps = {
   isTimedExam?: boolean; // Difference between exam and practice questions
@@ -14,14 +16,29 @@ const QuestionComponent = () => {
   const dispatch = useAppDispatch();
   const { id: modelSetId } = useParams();
   const location = useLocation();
+  const { hideModal, showModal, visible } = useModal();
   const isTimedExam = location.state?.isTimedExam || false;
+
+  const queryParams = new URLSearchParams(location.search);
+
+  // Access query parameters
+  const groupACount = queryParams.get("a_count") || "";
+  const groupBCount = queryParams.get("b_count") || "";
+
+  console.log("groupAC", groupACount, groupBCount);
 
   const { singleModelSet, isSingleModelSetLoading } = useAppSelector(
     (state) => state.subjects
   );
 
   useEffect(() => {
-    dispatch(fetchSingleModelSet({ modelsetId: modelSetId as string }))
+    dispatch(
+      fetchSingleModelSet({
+        modelsetId: modelSetId as string,
+        groupACount,
+        groupBCount,
+      })
+    )
       .then((response: any) => {
         setQuestions(response?.payload?.questions);
       })
@@ -88,6 +105,7 @@ const QuestionComponent = () => {
   };
 
   const seeResult = () => {
+    showModal();
     console.log("result", result, attemptedQuestion);
   };
 
@@ -201,10 +219,19 @@ const QuestionComponent = () => {
       })}
       <div style={{ float: "right", margin: "1rem 10px 10px 0" }}>
         <Button onClick={() => seeResult()}>
-          {" "}
-          {isTimedExam ? "See Results" : "Submit"}{" "}
+          {!isTimedExam ? "See Results" : "Submit"}{" "}
         </Button>
       </div>
+      {visible && (
+        <ResultModal
+          visible={visible}
+          hideModal={hideModal}
+          navigateURL={"navigateURL"}
+          total={questions?.length}
+          score={result}
+          attempted={attemptedQuestion}
+        />
+      )}
     </div>
   );
 };

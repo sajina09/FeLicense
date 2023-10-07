@@ -6,6 +6,8 @@ export interface Subject {
   subject_name: string;
   id: string;
   syllabus: string;
+  subject_link: string;
+  picture_link: string;
 }
 
 export const fetchSubjects = createAsyncThunk(
@@ -60,12 +62,25 @@ export const fetchSubjectModelSet = createAsyncThunk(
 
 export const fetchSingleModelSet = createAsyncThunk(
   "subjects/fetchSingleModelSet",
-  async ({ modelsetId }: { modelsetId: string }, { getState }) => {
+  async (
+    {
+      modelsetId,
+      groupACount,
+      groupBCount,
+    }: { modelsetId: string; groupACount: string; groupBCount: string },
+    { getState }
+  ) => {
     try {
       const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
       const response = await axios.get<ModelSet>(
-        `${baseUrl}modelsets/${modelsetId}/`
+        `${baseUrl}modelsets/${modelsetId}/`,
+        {
+          params: {
+            a_count: groupACount,
+            b_count: groupBCount,
+          },
+        }
       );
       return response.data;
     } catch (error) {
@@ -118,6 +133,7 @@ export interface SubjectsState {
   allModelSetList: ModelSet[];
   singleModelSet: ModelSet;
   currentSubject: string;
+  currentModelSet: string;
 }
 
 const initialState: SubjectsState = {
@@ -133,6 +149,7 @@ const initialState: SubjectsState = {
     model_set_link: "",
   },
   currentSubject: "",
+  currentModelSet: "",
 };
 
 const subjectsSlice = createSlice({
@@ -141,6 +158,9 @@ const subjectsSlice = createSlice({
   reducers: {
     setCurrentSubject: (state, { payload }: { payload: string }) => {
       state.currentSubject = payload;
+    },
+    setCurrentModelSet: (state, { payload }: { payload: string }) => {
+      state.currentModelSet = payload;
     },
   },
   extraReducers: (builder) => {
@@ -194,5 +214,5 @@ const subjectsSlice = createSlice({
   },
 });
 
-export const { setCurrentSubject } = subjectsSlice.actions;
+export const { setCurrentSubject, setCurrentModelSet } = subjectsSlice.actions;
 export default subjectsSlice.reducer;
