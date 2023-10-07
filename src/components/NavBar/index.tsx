@@ -4,12 +4,19 @@ import logo from "assets/logo.png";
 import { Breadcrumb, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "hooks/useApp";
+import { useDispatch } from "react-redux";
+import { setCurrentModelSet, setCurrentSubject } from "redux/subjectSlice";
 
 const Navbar: FC = () => {
   const navigate = useNavigate();
-  const { currentSubject } = useAppSelector((state) => state.subjects);
+  const dispatch = useDispatch();
+  const { currentSubject, currentModelSet } = useAppSelector(
+    (state) => state.subjects
+  );
 
   const handleLogoClick = () => {
+    dispatch(setCurrentModelSet(""));
+    dispatch(setCurrentSubject(""));
     navigate("/");
   };
   return (
@@ -28,7 +35,10 @@ const Navbar: FC = () => {
               },
               {
                 title: (
-                  <span onClick={() => navigate(`/${currentSubject}`)}>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/${currentSubject}`)}
+                  >
                     {currentSubject}
                   </span>
                 ),

@@ -14,9 +14,9 @@ export const routes: RouteObject[] = [
     path: "/",
     children: [
       { index: true, element: <Home /> },
+      { path: "about-us", element: <AboutUs /> },
       { path: "/all-fields", element: <AllCourses /> },
       { path: "/all-model-questions", element: <AllModelQuestions /> },
-      { path: "about-us", element: <AboutUs /> },
       { path: "/:name", element: <CourseSpecific /> },
       { path: "/:name/:id", element: <QuestionComponent /> },
     ],

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Button, Input } from "antd";
+import { Row, Col, Button, Input, List, Card, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import { useAppDispatch, useAppSelector } from "hooks/useApp";
 import { fetchSubjects, setCurrentSubject, Subject } from "redux/subjectSlice";
+import { DownloadOutlined } from "@ant-design/icons";
+import logo from "assets/logo.png";
 
 interface ChooseCourseProps {
   showAll?: boolean;
@@ -60,12 +62,17 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
     );
   };
 
+  const handleDownloadSet = (event: any, modelSetLink: string = "") => {
+    event.stopPropagation();
+    window.open(modelSetLink, "_blank");
+  };
+
   const navigateToField = (name: string, subjectId: number) => {
     const fieldName = name.replace(/\s+/g, "-");
     dispatch(setCurrentSubject(fieldName));
     navigate(`/${fieldName}`, { state: { subjectId } });
   };
-
+  console.log("filteredFields", filteredFields);
   return (
     <>
       {showAll && (
@@ -107,7 +114,61 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
             </Button>
           </div>
         )}
-        <div className="fields-container">{renderEngineeringFields()}</div>
+        {!showAll ? (
+          <div className="fields-container">{renderEngineeringFields()}</div>
+        ) : (
+          <List
+            style={{ width: "90%", margin: "auto" }}
+            // loading={isModelSetLoading}
+            grid={{ gutter: 16, column: 3 }}
+            dataSource={filteredFields}
+            renderItem={(item) => (
+              <List.Item>
+                <Card
+                  // loading={isModelSetLoading}
+                  title={<p title={item?.subject_name}>{item?.subject_name}</p>}
+                  cover={
+                    <div style={{ height: "200px", overflow: "hidden" }}>
+                      <img
+                        alt="Engineering"
+                        src={item?.picture_link ?? logo}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                  }
+                  onClick={() => {
+                    navigateToField(item?.subject_name, Number(item?.id));
+                  }}
+                  style={{ cursor: "pointer" }}
+                  className="hover-card"
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Tooltip title="Download Syllabus">
+                      <Button
+                        title="Download syllabus"
+                        shape="round"
+                        icon={<DownloadOutlined />}
+                        onClick={(event) =>
+                          handleDownloadSet(event, item.subject_link)
+                        }
+                      />
+                    </Tooltip>
+                  </div>
+                </Card>
+              </List.Item>
+            )}
+          />
+        )}
       </div>
     </>
   );

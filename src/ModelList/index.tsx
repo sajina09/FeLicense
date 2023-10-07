@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Input, List } from "antd";
 import BeButton from "components/Button";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { DownloadOutlined } from "@ant-design/icons";
-import { useAppSelector } from "hooks/useApp";
+import { useAppDispatch, useAppSelector } from "hooks/useApp";
 import { ModelSet } from "types";
+import { setCurrentModelSet } from "redux/subjectSlice";
+import useModal from "hooks/useModal";
+import CustomizedModal from "components/CutomizedModalSet";
+import "./styles.css";
 
 const ModelList: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useAppDispatch();
   const { allModelSetList, modelSetList, isModelSetLoading } = useAppSelector(
     (state) => state.subjects
   );
 
+  const { hideModal, showModal, visible } = useModal();
+
   const currentPath = location.pathname;
 
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [navigateURL, setNavigateURL] = useState("");
   const [filteredFields, setFilteredFields] = useState<ModelSet[]>([]);
 
   useEffect(() => {
@@ -31,10 +39,10 @@ const ModelList: React.FC = () => {
   }, [currentPath, allModelSetList, searchQuery, modelSetList]);
 
   const handlePractice = (modelSetId: number, modelName: string) => {
+    showModal();
     const fieldName = modelName.split(" (")[0];
     const extractedName = fieldName.replace(/\s+/g, "-");
-
-    navigate(`/${extractedName}/${modelSetId}`);
+    setNavigateURL(`/${extractedName}/${modelSetId}`);
   };
   const handleTakeExam = (modelSetId: number, modelName: string) => {
     const fieldName = modelName.split(" (")[0];
@@ -43,6 +51,7 @@ const ModelList: React.FC = () => {
     navigate(`/${extractedName}/${modelSetId}`, {
       state: { isTimedExam: true },
     });
+    dispatch(setCurrentModelSet(extractedName));
   };
 
   const handleDownloadSet = (modelSetLink: string = "") => {
@@ -69,7 +78,17 @@ const ModelList: React.FC = () => {
           <List.Item>
             <Card
               loading={isModelSetLoading}
-              title={<p title={item?.set_name}>{item?.set_name}</p>}
+              title={
+                <p className="subject-name" title={item?.set_name}>
+                  {item?.set_name}
+                </p>
+              }
+              // cover={
+              //   <img
+              //     alt="example"
+              //     src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+              //   />
+              // }
             >
               <div
                 style={{
@@ -100,6 +119,13 @@ const ModelList: React.FC = () => {
           </List.Item>
         )}
       />
+      {visible && (
+        <CustomizedModal
+          visible={visible}
+          hideModal={hideModal}
+          navigateURL={navigateURL}
+        />
+      )}
     </>
   );
 };

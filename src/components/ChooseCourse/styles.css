@@ -85,3 +85,23 @@
     width: 100%;
   }
 }
+.hover-card {
+  position: relative;
+  transition: border 0.3s ease-in-out;
+  border: 2px solid transparent;
+}
+
+.hover-card:hover {
+  animation: border-move 2.5s infinite alternate;
+  z-index: 500;
+  border: 3px solid #f90;
+}
+
+@keyframes border-move {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+}
