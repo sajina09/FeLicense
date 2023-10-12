@@ -3,10 +3,10 @@ import logo from "assets/logo.png";
 import "./styles.css";
 import {
   FacebookOutlined,
-  InstagramOutlined,
-  MessageOutlined,
+  // InstagramOutlined,
+  // MessageOutlined,
 } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 
 const Footer: React.FC = () => {
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
           <p className="footer-small">Join the conversation</p>
           <div className="footer-social-icons">
             <a
-              href="https://www.facebook.com"
+              href="https://www.facebook.com/profile.php?id=61550895645997"
               target={"_blank"}
               rel="noreferrer"
             >
