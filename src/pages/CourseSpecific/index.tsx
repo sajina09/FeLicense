@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import { Col, Row } from "antd";
 import Ticket from "components/Ticket";
 import "./styles.css";
-import ChooseCourse from "components/ChooseCourse";
 
-import ModelList from "ModelList";
 import { Helmet } from "react-helmet-async";
 import { useAppDispatch } from "hooks/useApp";
 import { fetchModelSet, fetchSubjectModelSet } from "redux/subjectSlice";
 import { useLocation, useParams } from "react-router-dom";
+import FieldLayout from "pages/FieldLayout";
 
 const CourseSpecific: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -44,7 +42,7 @@ const CourseSpecific: React.FC = () => {
             top: 0,
             left: 0,
             width: "100%",
-            height: "60%", //TODO : Fix height in big screen
+            height: "60vh", //TODO : Fix height in big screen
             backgroundImage: `url(${dummyImage})`,
             backgroundSize: "cover",
             // backgroundRepeat: "no-repeat",
@@ -65,15 +63,9 @@ const CourseSpecific: React.FC = () => {
         </div>
       </div>
 
-      <div className="section">
-        <Row>
-          <Col>
-            <h1 className="section-title">Available Model Questions</h1>
-          </Col>
-        </Row>
-      </div>
-      <ModelList />
-      <ChooseCourse />
+      <FieldLayout />
+
+      {/*  */}
     </div>
   );
 };

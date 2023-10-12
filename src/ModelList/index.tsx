@@ -61,6 +61,19 @@ const ModelList: React.FC = () => {
   return (
     <>
       {" "}
+      <div className="section">
+        <h1
+          className="section-title"
+          style={{
+            background: "linear-gradient(45deg, #a5d3d9, #fafaf8)",
+            borderRadius: "15px",
+            padding: "5px 10px",
+            marginBottom: "1rem",
+          }}
+        >
+          Available Model Questions
+        </h1>
+      </div>
       <div style={{ width: "300px", margin: "auto", marginBottom: "1.5rem" }}>
         <Input
           placeholder="Search model set"

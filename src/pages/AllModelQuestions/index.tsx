@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Col, Row } from "antd";
 import ChooseCourse from "components/ChooseCourse";
 
 import ModelList from "ModelList";
@@ -35,23 +34,6 @@ const AllModelQuestions: React.FC = () => {
         ></div>
       </div>
 
-      <div className="section" style={{ width: "100%" }}>
-        <Row>
-          <Col>
-            <h1
-              className="section-title"
-              style={{
-                background: "linear-gradient(45deg, #a5d3d9, #fafaf8)",
-                borderRadius: "15px",
-                padding: "5px 10px",
-                marginBottom: "1rem",
-              }}
-            >
-              Available Model Questions
-            </h1>
-          </Col>
-        </Row>
-      </div>
       <ModelList />
       <ChooseCourse />
     </div>

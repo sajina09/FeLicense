@@ -72,7 +72,6 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
     dispatch(setCurrentSubject(fieldName));
     navigate(`/${fieldName}`, { state: { subjectId } });
   };
-  console.log("filteredFields", filteredFields);
   return (
     <>
       {showAll && (

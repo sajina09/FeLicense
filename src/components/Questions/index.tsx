@@ -25,8 +25,6 @@ const QuestionComponent = () => {
   const groupACount = queryParams.get("a_count") || "";
   const groupBCount = queryParams.get("b_count") || "";
 
-  console.log("groupAC", groupACount, groupBCount);
-
   const { singleModelSet, isSingleModelSetLoading } = useAppSelector(
     (state) => state.subjects
   );
@@ -53,11 +51,11 @@ const QuestionComponent = () => {
     //     shuffleQuestions: false,
     //   })
     // );
-  }, []);
+  }, [modelSetId, groupACount, groupBCount, dispatch]);
 
   const [questions, setQuestions] = useState(singleModelSet?.questions);
   const [attemptedQuestion, setAttemptedQuestion] = useState(0);
-  let result = 0;
+  const [totalScore, setTotalScore] = useState(0);
 
   const groupAQuestions = questions?.filter(
     (question) => question.group === "a"
@@ -79,6 +77,7 @@ const QuestionComponent = () => {
       });
     }, 50);
 
+    let result = 0;
     const attemptedQuestionsCount = questions?.reduce((count, question) => {
       if (question.userAnswered) {
         count += 1;
@@ -90,6 +89,7 @@ const QuestionComponent = () => {
     }, 0);
 
     setAttemptedQuestion(attemptedQuestionsCount);
+    setTotalScore(result);
   };
 
   const handleCollapse = (index: number) => {
@@ -106,7 +106,6 @@ const QuestionComponent = () => {
 
   const seeResult = () => {
     showModal();
-    console.log("result", result, attemptedQuestion);
   };
 
   return (
@@ -128,8 +127,9 @@ const QuestionComponent = () => {
       {isTimedExam && (
         <div className="timer-container">
           <div className="timer">
-            Time Left
-            {/* <CountdownTimer durationInMinutes={120} /> */}
+            <h2>Best of Luck</h2>
+            {/* Time Left */}
+            {/* <CountdownTimer durationInMinutes={1} /> */}
           </div>
         </div>
       )}
@@ -141,6 +141,7 @@ const QuestionComponent = () => {
         return (
           <Card
             key={question.id}
+            loading={isSingleModelSetLoading}
             size="small"
             title={
               <div
@@ -228,7 +229,7 @@ const QuestionComponent = () => {
           hideModal={hideModal}
           navigateURL={"navigateURL"}
           total={questions?.length}
-          score={result}
+          score={totalScore}
           attempted={attemptedQuestion}
         />
       )}

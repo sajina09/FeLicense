@@ -26,7 +26,6 @@ const ResultModal: FC<IProps> = ({
   const [loading, setLoading] = useState(false);
 
   const handleFinish = ({ numberOfGroupA, numberOfGroupB }: any) => {
-    console.log("values", { numberOfGroupA, numberOfGroupB });
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -34,7 +33,6 @@ const ResultModal: FC<IProps> = ({
     // navigate(
     //   `${navigateURL}?a_count=${numberOfGroupA}&b_count=${numberOfGroupB}`
     // );
-    console.log("navigateTo", navigateURL);
     // hideModal();
   };
 

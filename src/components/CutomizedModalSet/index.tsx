@@ -16,7 +16,6 @@ const CustomizedModal: FC<IProps> = ({ visible, hideModal, navigateURL }) => {
   const [loading, setLoading] = useState(false);
 
   const handleFinish = ({ numberOfGroupA, numberOfGroupB }: any) => {
-    console.log("values", { numberOfGroupA, numberOfGroupB });
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -24,7 +23,6 @@ const CustomizedModal: FC<IProps> = ({ visible, hideModal, navigateURL }) => {
     navigate(
       `${navigateURL}?a_count=${numberOfGroupA}&b_count=${numberOfGroupB}`
     );
-    console.log("navigateTo", navigateURL);
     // hideModal();
   };
 
@@ -54,25 +52,31 @@ const CustomizedModal: FC<IProps> = ({ visible, hideModal, navigateURL }) => {
         }
       >
         {/* TODO */}
-        <p>ADD INFO LATER</p>
+        <p>
+          Choose the number of question you want to appear in your practice test
+        </p>
         <Form
           form={form}
           onFinish={handleFinish}
           autoComplete="off"
           colon={false}
           initialValues={{
-            numberOfGroupA: "20",
-            numberOfGroupB: "5",
+            numberOfGroupA: "60",
+            numberOfGroupB: "20",
           }}
         >
           <div className="form-fields">
-            <Form.Item label="Number of Group A" name="numberOfGroupA">
+            <Form.Item label="Number of Group A:" name="numberOfGroupA">
               <InputNumber min={5} max={60} defaultValue={20} />
             </Form.Item>
-            <Form.Item label="Number of Group B" name="numberOfGroupB">
+            <Form.Item label="Number of Group B:" name="numberOfGroupB">
               <InputNumber min={5} max={20} defaultValue={5} />
             </Form.Item>
           </div>
+          <p style={{ fontSize: "12px", color: "gray" }}>
+            *Note: If max values are chosen for number of groups all questions
+            available in the model set are shown.*
+          </p>
         </Form>
       </Modal>
     </>
