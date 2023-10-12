@@ -1,0 +1,41 @@
+/* CircleTextLoader.css */
+
+.circle {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  background-color: #333; /* Change the background color as needed */
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  background-color: #fff; /* Change the logo background color */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+.text p {
+  animation: rotateText 10s linear infinite; /* Adjust the animation duration as needed */
+}
+
+@keyframes rotateText {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add additional styles if needed */
