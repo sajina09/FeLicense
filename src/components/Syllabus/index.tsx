@@ -30,7 +30,7 @@ const Syllabus: FC = () => {
   return (
     <Tabs
       tabPosition="top"
-      defaultActiveKey="0"
+      defaultActiveKey="1"
       className="chapter-tab"
       onChange={(key) => {
         const course = courses.find((course) => course.id === key);

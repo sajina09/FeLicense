@@ -62,10 +62,11 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
         minutesRemaining <= 0 &&
         secondsRemaining <= 0
       ) {
-        // Countdown has reached 0 hours, 0 minutes, and 0 seconds, you can add additional logic here
         if (timerRef.current !== null) {
           clearInterval(timerRef.current); // Stop the countdown
         }
+        // Optionally, remove the countdownDate from local storage
+        localStorage.removeItem("countdownDate");
       }
     }
   };
