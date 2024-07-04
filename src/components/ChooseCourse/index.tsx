@@ -15,6 +15,8 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
   const dispatch = useAppDispatch();
   const { fields } = useAppSelector((state) => state.subjects);
 
+  const isFieldsFetched = fields?.length > 0;
+
   const navigate = useNavigate();
 
   // State for the search query and filtered fields
@@ -113,7 +115,7 @@ const ChooseCourse: React.FC<ChooseCourseProps> = ({ showAll = false }) => {
             </Button>
           </div>
         )}
-        {!showAll ? (
+        {!showAll? (
           <div className="fields-container">{renderEngineeringFields()}</div>
         ) : (
           <List

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import "./styles.css";
 import logo from "assets/logo.png";
 import { Breadcrumb, Button } from "antd";
@@ -19,6 +19,9 @@ const Navbar: FC = () => {
     dispatch(setCurrentSubject(""));
     navigate("/");
   };
+
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   return (
     <div className="navbar">
       <div className="logo" onClick={handleLogoClick}>
@@ -26,26 +29,38 @@ const Navbar: FC = () => {
       </div>
 
       <div className="actions">
-        {/* <BeButton> Book Test</BeButton> */}
-        {currentSubject && (
-          <Breadcrumb
-            items={[
-              {
-                title: "Home",
-              },
-              {
-                title: (
-                  <span
-                    style={{ cursor: "pointer" }}
-                    onClick={() => navigate(`/${currentSubject}`)}
-                  >
-                    {currentSubject}
-                  </span>
-                ),
-              },
-            ]}
-          />
-        )}
+        <div>
+          {/* <BeButton> Book Test</BeButton> */}
+          {currentSubject && (
+            <Breadcrumb
+              items={[
+                {
+                  title: "Home",
+                },
+                {
+                  title: (
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate(`/${currentSubject}`)}
+                    >
+                      {currentSubject}
+                    </span>
+                  ),
+                },
+              ]}
+            />
+          )}
+        </div>
+        {/* <div>
+          <div>
+            <Input
+              placeholder="Search your field"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              allowClear
+            />
+          </div>
+        </div> */}
       </div>
       <div style={{ marginRight: "1rem" }}>
         <Button

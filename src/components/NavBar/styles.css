@@ -39,5 +39,8 @@
 
 .actions {
   display: flex;
+  justify-content: space-between;
+  width: 50vw;
+  flex-wrap: wrap;
   align-items: center;
 }

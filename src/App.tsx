@@ -21,7 +21,6 @@ function App() {
         <Layout
           style={{
             marginTop: "64px",
-            // margin: "0px 10rem", padding: "0px 0px"
           }}
         >
           <AppRoutes />

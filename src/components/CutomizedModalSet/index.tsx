@@ -36,10 +36,6 @@ const CustomizedModal: FC<IProps> = ({ visible, hideModal, navigateURL }) => {
         onCancel={hideModal}
         footer={
           <div className="modal-footer">
-            <Button key="back" onClick={form?.submit}>
-              Skip Customization
-            </Button>
-
             <Button
               key="submit"
               type="primary"
@@ -48,12 +44,16 @@ const CustomizedModal: FC<IProps> = ({ visible, hideModal, navigateURL }) => {
             >
               Customize
             </Button>
+            <Button key="back" onClick={form?.submit}>
+              Proceed
+            </Button>
           </div>
         }
       >
         {/* TODO */}
         <p>
-          Choose the number of question you want to appear in your practice test
+          Choose the number of question you want to appear in your practice
+          test.
         </p>
         <Form
           form={form}
